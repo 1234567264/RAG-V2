@@ -1,0 +1,82 @@
+{
+  "total_consultas": 50,
+  "omitidas": 0,
+  "por_categoria": {
+    "exacta": {
+      "h1_top1": 10,
+      "h1_top5": 10,
+      "h2_top1": 7,
+      "h2_top5": 8,
+      "h2oc_top1": 8,
+      "h2oc_top5": 10,
+      "h2fu_top1": 10,
+      "h2fu_top5": 10
+    },
+    "sin_marco": {
+      "h1_top1": 7,
+      "h1_top5": 9,
+      "h2_top1": 10,
+      "h2_top5": 10,
+      "h2oc_top1": 10,
+      "h2oc_top5": 10,
+      "h2fu_top1": 10,
+      "h2fu_top5": 10
+    },
+    "recoloreada": {
+      "h1_top1": 6,
+      "h1_top5": 7,
+      "h2_top1": 6,
+      "h2_top5": 8,
+      "h2oc_top1": 9,
+      "h2oc_top5": 10,
+      "h2fu_top1": 8,
+      "h2fu_top5": 10
+    },
+    "recortada": {
+      "h1_top1": 6,
+      "h1_top5": 7,
+      "h2_top1": 10,
+      "h2_top5": 10,
+      "h2oc_top1": 10,
+      "h2oc_top5": 10,
+      "h2fu_top1": 10,
+      "h2fu_top5": 10
+    },
+    "persona": {
+      "h1_top1": 3,
+      "h1_top5": 3,
+      "h2_top1": 1,
+      "h2_top5": 1,
+      "h2oc_top1": 3,
+      "h2oc_top5": 6,
+      "h2fu_top1": 4,
+      "h2fu_top5": 8
+    }
+  },
+  "por_motor": {
+    "h1": {
+      "top1": 32,
+      "top5": 36,
+      "n": 50,
+      "tiempo_promedio_ms": 662.4
+    },
+    "h2": {
+      "top1": 34,
+      "top5": 37,
+      "n": 50,
+      "tiempo_promedio_ms": 674.2
+    },
+    "h2oc": {
+      "top1": 40,
+      "top5": 46,
+      "n": 50,
+      "tiempo_promedio_ms": 526.0
+    },
+    "h2fu": {
+      "top1": 42,
+      "top5": 48,
+      "n": 50,
+      "tiempo_promedio_ms": 5578.5
+    }
+  }
+}

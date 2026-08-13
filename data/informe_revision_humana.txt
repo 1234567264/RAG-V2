@@ -1,0 +1,25 @@
+REVISION DE LAS 50 IMAGENES NORMALIZADAS - SALA 1 / HITO 2
+============================================================
+Revisadas                 : 50
+Correctas                 : 49 (98%)
+Dudosas (revisar)         : 1
+Incorrectas               : 0
+Con aviso del pipeline    : 1
+
+Detalle por criterio (cuantas cumplen):
+  solo_frente_espalda   : 50/50
+  sin_logo              : 50/50
+  sin_marco             : 50/50
+  sin_cabecera_pie      : 50/50
+  sin_cortes            : 50/50
+  sin_deformacion       : 50/50
+  lienzo_ok             : 50/50
+
+Casos no 'correcta' (pendientes de revision visual):
+  [DUDOSA] AIM-P202-007.jpg  ->  pipeline: dudoso
+============================================================
+
+Metodo: criterios objetivos de pixel (brillo/densidad) cruzados
+con el estado del pipeline (detalle_normalizacion.csv). La hoja de
+contacto revision_contact_sheet.png permite el visto bueno visual
+final; la columna clasificacion se puede editar a mano.

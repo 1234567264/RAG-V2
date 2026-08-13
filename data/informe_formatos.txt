@@ -1,0 +1,54 @@
+INFORME DE FORMATOS - SALA 1 / HITO 2 (ACTIVIDAD 1)
+============================================================
+Muestra analizada      : 1000 imagenes validas de 1000 (minimo pedido: 100)
+No legibles            : 0
+
+1) FORMATOS VISUALES DIFERENTES
+   Total de formatos detectados: 5
+   (firma = n_bandas | cabecera | pie | logo | n_lados_marco)
+   Top formatos:
+      1. (3, 1, 1, 1, 0)  ->  994 imagenes (99.4%)
+      2. (3, 1, 1, 1, 4)  ->  2 imagenes (0.2%)
+      3. (2, 0, 1, 0, 0)  ->  2 imagenes (0.2%)
+      4. (2, 1, 0, 1, 0)  ->  1 imagenes (0.1%)
+      5. (1, 0, 0, 1, 0)  ->  1 imagenes (0.1%)
+
+2) MARCOS
+   Imagenes con marco izquierdo : 2 (0.2%), espesor prom 0.1 px
+   Imagenes con marco derecho   : 2 (0.2%), espesor prom 0.1 px
+   Imagenes con marco superior  : 2 (0.2%), espesor prom 0.1 px
+   Imagenes con marco inferior  : 2 (0.2%), espesor prom 0.1 px
+   Conclusion: la mayoria de tarjetas no tiene marco pintado en el
+   borde (margenes blancos); el 'marco' visible corresponde a las
+   bandas internas de cabecera y pie, que SI aparecen en posiciones
+   consistentes (ver punto 3).
+
+3) CABECERA, PIE Y URL
+   Cabecera presente en 997 (99.7%): banda superior, altura media 14.2% de la imagen
+   Pie (zona de URL) en 998 (99.8%): banda inferior, altura media 9.8% de la imagen
+   Ubicacion tipica de cabecera: filas 0%-14%
+   Ubicacion tipica de pie/URL: filas 90%-100%
+
+4) UBICACION DE FRENTE Y ESPALDA
+   Frente  : 17%-56% del ancho (detectado en 1000/1000)
+   Espalda : 57%-97% del ancho (detectado en 986/1000)
+
+5) PORCENTAJE RECORTABLE CON REGLAS SIMPLES
+   (definicion: fraccion de la tarjeta que no es la zona del uniforme)
+   Recorte medio estimado     : 48.7% de la tarjeta
+   Minimo / maximo            : 9.3% / 72.3%
+       0-50% de recorte -> 902 imagenes
+      50-60% de recorte -> 92 imagenes
+      60-70% de recorte -> 4 imagenes
+      70-80% de recorte -> 2 imagenes
+      80-90% de recorte -> 0 imagenes
+      90-101% de recorte -> 0 imagenes
+   Imagenes con recorte >= 30%: 985 (98.5%)
+
+6) CONCLUSION
+   Con reglas simples (bandas + bloques + bbox de contenido) se puede
+   recortar en promedio el 48.7% de cada tarjeta; 5 formatos visuales
+   comparten la misma estructura (cabecera arriba, pie abajo, frente
+   a la izquierda y espalda a la derecha), por lo que un unico
+   algoritmo de bandas/bloques es aplicable a la mayoria del banco.
+============================================================

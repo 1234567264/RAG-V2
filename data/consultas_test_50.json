@@ -1,0 +1,357 @@
+{
+  "version": 1,
+  "descripcion": "Conjunto de prueba de 50 consultas para la Sala 4 (5 categorias x 10, semilla 42). Los ids correctos se derivan por hash perceptual de las variantes exactas.",
+  "semilla": 42,
+  "consultas": [
+    {
+      "consulta": "c01_cuerpo",
+      "categoria": "cuerpo",
+      "archivo": "c01_cuerpo.jpeg",
+      "ruta_imagen": "data/consultas/c01_cuerpo.jpeg",
+      "id_correcto": "AIM-P001-013"
+    },
+    {
+      "consulta": "c03_cuerpo",
+      "categoria": "cuerpo",
+      "archivo": "c03_cuerpo.jpeg",
+      "ruta_imagen": "data/consultas/c03_cuerpo.jpeg",
+      "id_correcto": "AIM-P001-015"
+    },
+    {
+      "consulta": "c04_cuerpo",
+      "categoria": "cuerpo",
+      "archivo": "c04_cuerpo.jpeg",
+      "ruta_imagen": "data/consultas/c04_cuerpo.jpeg",
+      "id_correcto": "AIM-P001-016"
+    },
+    {
+      "consulta": "c06_cuerpo",
+      "categoria": "cuerpo",
+      "archivo": "c06_cuerpo.jpeg",
+      "ruta_imagen": "data/consultas/c06_cuerpo.jpeg",
+      "id_correcto": "AIM-P001-002"
+    },
+    {
+      "consulta": "c09_cuerpo",
+      "categoria": "cuerpo",
+      "archivo": "c09_cuerpo.jpeg",
+      "ruta_imagen": "data/consultas/c09_cuerpo.jpeg",
+      "id_correcto": "AIM-P001-005"
+    },
+    {
+      "consulta": "c10_cuerpo",
+      "categoria": "cuerpo",
+      "archivo": "c10_cuerpo.jpeg",
+      "ruta_imagen": "data/consultas/c10_cuerpo.jpeg",
+      "id_correcto": "AIM-P001-006"
+    },
+    {
+      "consulta": "c11_cuerpo",
+      "categoria": "cuerpo",
+      "archivo": "c11_cuerpo.jpeg",
+      "ruta_imagen": "data/consultas/c11_cuerpo.jpeg",
+      "id_correcto": "AIM-P001-007"
+    },
+    {
+      "consulta": "c12_cuerpo",
+      "categoria": "cuerpo",
+      "archivo": "c12_cuerpo.jpeg",
+      "ruta_imagen": "data/consultas/c12_cuerpo.jpeg",
+      "id_correcto": "AIM-P001-008"
+    },
+    {
+      "consulta": "c13_cuerpo",
+      "categoria": "cuerpo",
+      "archivo": "c13_cuerpo.jpeg",
+      "ruta_imagen": "data/consultas/c13_cuerpo.jpeg",
+      "id_correcto": "AIM-P001-009"
+    },
+    {
+      "consulta": "c15_cuerpo",
+      "categoria": "cuerpo",
+      "archivo": "c15_cuerpo.jpeg",
+      "ruta_imagen": "data/consultas/c15_cuerpo.jpeg",
+      "id_correcto": "AIM-P001-011"
+    },
+    {
+      "consulta": "c02_exacto",
+      "categoria": "exacta",
+      "archivo": "c02_exacto.jpg",
+      "ruta_imagen": "data/consultas/c02_exacto.jpg",
+      "id_correcto": "AIM-P001-014"
+    },
+    {
+      "consulta": "c03_exacto",
+      "categoria": "exacta",
+      "archivo": "c03_exacto.jpg",
+      "ruta_imagen": "data/consultas/c03_exacto.jpg",
+      "id_correcto": "AIM-P001-015"
+    },
+    {
+      "consulta": "c06_exacto",
+      "categoria": "exacta",
+      "archivo": "c06_exacto.jpg",
+      "ruta_imagen": "data/consultas/c06_exacto.jpg",
+      "id_correcto": "AIM-P001-002"
+    },
+    {
+      "consulta": "c07_exacto",
+      "categoria": "exacta",
+      "archivo": "c07_exacto.jpg",
+      "ruta_imagen": "data/consultas/c07_exacto.jpg",
+      "id_correcto": "AIM-P001-003"
+    },
+    {
+      "consulta": "c08_exacto",
+      "categoria": "exacta",
+      "archivo": "c08_exacto.jpg",
+      "ruta_imagen": "data/consultas/c08_exacto.jpg",
+      "id_correcto": "AIM-P001-004"
+    },
+    {
+      "consulta": "c09_exacto",
+      "categoria": "exacta",
+      "archivo": "c09_exacto.png",
+      "ruta_imagen": "data/consultas/c09_exacto.png",
+      "id_correcto": "AIM-P001-005"
+    },
+    {
+      "consulta": "c10_exacto",
+      "categoria": "exacta",
+      "archivo": "c10_exacto.jpg",
+      "ruta_imagen": "data/consultas/c10_exacto.jpg",
+      "id_correcto": "AIM-P001-006"
+    },
+    {
+      "consulta": "c11_exacto",
+      "categoria": "exacta",
+      "archivo": "c11_exacto.png",
+      "ruta_imagen": "data/consultas/c11_exacto.png",
+      "id_correcto": "AIM-P001-007"
+    },
+    {
+      "consulta": "c13_exacto",
+      "categoria": "exacta",
+      "archivo": "c13_exacto.jpg",
+      "ruta_imagen": "data/consultas/c13_exacto.jpg",
+      "id_correcto": "AIM-P001-009"
+    },
+    {
+      "consulta": "c15_exacto",
+      "categoria": "exacta",
+      "archivo": "c15_exacto.jpg",
+      "ruta_imagen": "data/consultas/c15_exacto.jpg",
+      "id_correcto": "AIM-P001-011"
+    },
+    {
+      "consulta": "c01_recoloreado",
+      "categoria": "recoloreada",
+      "archivo": "c01_recoloreado.jpeg",
+      "ruta_imagen": "data/consultas/c01_recoloreado.jpeg",
+      "id_correcto": "AIM-P001-013"
+    },
+    {
+      "consulta": "c03_recoloreado",
+      "categoria": "recoloreada",
+      "archivo": "c03_recoloreado.jpeg",
+      "ruta_imagen": "data/consultas/c03_recoloreado.jpeg",
+      "id_correcto": "AIM-P001-015"
+    },
+    {
+      "consulta": "c06_recoloreado",
+      "categoria": "recoloreada",
+      "archivo": "c06_recoloreado.jpeg",
+      "ruta_imagen": "data/consultas/c06_recoloreado.jpeg",
+      "id_correcto": "AIM-P001-002"
+    },
+    {
+      "consulta": "c08_recoloreado",
+      "categoria": "recoloreada",
+      "archivo": "c08_recoloreado.jpeg",
+      "ruta_imagen": "data/consultas/c08_recoloreado.jpeg",
+      "id_correcto": "AIM-P001-004"
+    },
+    {
+      "consulta": "c10_recoloreado",
+      "categoria": "recoloreada",
+      "archivo": "c10_recoloreado.jpeg",
+      "ruta_imagen": "data/consultas/c10_recoloreado.jpeg",
+      "id_correcto": "AIM-P001-006"
+    },
+    {
+      "consulta": "c11_recoloreado",
+      "categoria": "recoloreada",
+      "archivo": "c11_recoloreado.jpeg",
+      "ruta_imagen": "data/consultas/c11_recoloreado.jpeg",
+      "id_correcto": "AIM-P001-007"
+    },
+    {
+      "consulta": "c12_recoloreado",
+      "categoria": "recoloreada",
+      "archivo": "c12_recoloreado.jpeg",
+      "ruta_imagen": "data/consultas/c12_recoloreado.jpeg",
+      "id_correcto": "AIM-P001-008"
+    },
+    {
+      "consulta": "c13_recoloreado",
+      "categoria": "recoloreada",
+      "archivo": "c13_recoloreado.jpeg",
+      "ruta_imagen": "data/consultas/c13_recoloreado.jpeg",
+      "id_correcto": "AIM-P001-009"
+    },
+    {
+      "consulta": "c14_recoloreado",
+      "categoria": "recoloreada",
+      "archivo": "c14_recoloreado.jpeg",
+      "ruta_imagen": "data/consultas/c14_recoloreado.jpeg",
+      "id_correcto": "AIM-P001-010"
+    },
+    {
+      "consulta": "c16_recoloreado",
+      "categoria": "recoloreada",
+      "archivo": "c16_recoloreado.jpeg",
+      "ruta_imagen": "data/consultas/c16_recoloreado.jpeg",
+      "id_correcto": "AIM-P001-012"
+    },
+    {
+      "consulta": "c01_recorte",
+      "categoria": "recortada",
+      "archivo": "c01_recorte.jpg",
+      "ruta_imagen": "data/consultas/c01_recorte.jpg",
+      "id_correcto": "AIM-P001-013"
+    },
+    {
+      "consulta": "c07_recorte",
+      "categoria": "recortada",
+      "archivo": "c07_recorte.jpg",
+      "ruta_imagen": "data/consultas/c07_recorte.jpg",
+      "id_correcto": "AIM-P001-003"
+    },
+    {
+      "consulta": "c08_recorte",
+      "categoria": "recortada",
+      "archivo": "c08_recorte.jpg",
+      "ruta_imagen": "data/consultas/c08_recorte.jpg",
+      "id_correcto": "AIM-P001-004"
+    },
+    {
+      "consulta": "c09_recorte",
+      "categoria": "recortada",
+      "archivo": "c09_recorte.jpg",
+      "ruta_imagen": "data/consultas/c09_recorte.jpg",
+      "id_correcto": "AIM-P001-005"
+    },
+    {
+      "consulta": "c10_recorte",
+      "categoria": "recortada",
+      "archivo": "c10_recorte.jpg",
+      "ruta_imagen": "data/consultas/c10_recorte.jpg",
+      "id_correcto": "AIM-P001-006"
+    },
+    {
+      "consulta": "c12_recorte",
+      "categoria": "recortada",
+      "archivo": "c12_recorte.jpg",
+      "ruta_imagen": "data/consultas/c12_recorte.jpg",
+      "id_correcto": "AIM-P001-008"
+    },
+    {
+      "consulta": "c13_recorte",
+      "categoria": "recortada",
+      "archivo": "c13_recorte.jpg",
+      "ruta_imagen": "data/consultas/c13_recorte.jpg",
+      "id_correcto": "AIM-P001-009"
+    },
+    {
+      "consulta": "c14_recorte",
+      "categoria": "recortada",
+      "archivo": "c14_recorte.jpg",
+      "ruta_imagen": "data/consultas/c14_recorte.jpg",
+      "id_correcto": "AIM-P001-010"
+    },
+    {
+      "consulta": "c15_recorte",
+      "categoria": "recortada",
+      "archivo": "c15_recorte.jpg",
+      "ruta_imagen": "data/consultas/c15_recorte.jpg",
+      "id_correcto": "AIM-P001-011"
+    },
+    {
+      "consulta": "c16_recorte",
+      "categoria": "recortada",
+      "archivo": "c16_recorte.jpg",
+      "ruta_imagen": "data/consultas/c16_recorte.jpg",
+      "id_correcto": "AIM-P001-012"
+    },
+    {
+      "consulta": "c02_sin_marco",
+      "categoria": "sin_marco",
+      "archivo": "c02_sin_marco.jpg",
+      "ruta_imagen": "data/consultas/c02_sin_marco.jpg",
+      "id_correcto": "AIM-P001-014"
+    },
+    {
+      "consulta": "c03_sin_marco",
+      "categoria": "sin_marco",
+      "archivo": "c03_sin_marco.jpg",
+      "ruta_imagen": "data/consultas/c03_sin_marco.jpg",
+      "id_correcto": "AIM-P001-015"
+    },
+    {
+      "consulta": "c05_sin_marco",
+      "categoria": "sin_marco",
+      "archivo": "c05_sin_marco.jpg",
+      "ruta_imagen": "data/consultas/c05_sin_marco.jpg",
+      "id_correcto": "AIM-P001-001"
+    },
+    {
+      "consulta": "c06_sin_marco",
+      "categoria": "sin_marco",
+      "archivo": "c06_sin_marco.jpg",
+      "ruta_imagen": "data/consultas/c06_sin_marco.jpg",
+      "id_correcto": "AIM-P001-002"
+    },
+    {
+      "consulta": "c07_sin_marco",
+      "categoria": "sin_marco",
+      "archivo": "c07_sin_marco.jpg",
+      "ruta_imagen": "data/consultas/c07_sin_marco.jpg",
+      "id_correcto": "AIM-P001-003"
+    },
+    {
+      "consulta": "c11_sin_marco",
+      "categoria": "sin_marco",
+      "archivo": "c11_sin_marco.jpg",
+      "ruta_imagen": "data/consultas/c11_sin_marco.jpg",
+      "id_correcto": "AIM-P001-007"
+    },
+    {
+      "consulta": "c12_sin_marco",
+      "categoria": "sin_marco",
+      "archivo": "c12_sin_marco.jpg",
+      "ruta_imagen": "data/consultas/c12_sin_marco.jpg",
+      "id_correcto": "AIM-P001-008"
+    },
+    {
+      "consulta": "c13_sin_marco",
+      "categoria": "sin_marco",
+      "archivo": "c13_sin_marco.jpg",
+      "ruta_imagen": "data/consultas/c13_sin_marco.jpg",
+      "id_correcto": "AIM-P001-009"
+    },
+    {
+      "consulta": "c14_sin_marco",
+      "categoria": "sin_marco",
+      "archivo": "c14_sin_marco.jpg",
+      "ruta_imagen": "data/consultas/c14_sin_marco.jpg",
+      "id_correcto": "AIM-P001-010"
+    },
+    {
+      "consulta": "c16_sin_marco",
+      "categoria": "sin_marco",
+      "archivo": "c16_sin_marco.jpg",
+      "ruta_imagen": "data/consultas/c16_sin_marco.jpg",
+      "id_correcto": "AIM-P001-012"
+    }
+  ]
+}

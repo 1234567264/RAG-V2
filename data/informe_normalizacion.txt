@@ -1,0 +1,589 @@
+REPORTE DE NORMALIZACION - SALA 1 / HITO 2
+============================================================
+Total encontradas       : 15272
+Procesadas correctamente: 14925
+Fallidas                : 0
+Dudosas (revisar)       : 347
+Recorte correcto        : 14925
+Recorte incorrecto      : 347
+Frente detectado        : 15268
+Espalda detectada       : 15103
+Integridad de salida    : OK (100% .jpg)
+Tiempo total            : 525.04 s
+Tiempo promedio         : 34.4 ms/imagen
+============================================================
+
+IMAGENES ATIPICAS (no siguen la estructura habitual):
+  AIM-P010-051.gif
+  AIM-P012-001.gif
+  AIM-P015-006.jpg
+  AIM-P016-054.png
+  AIM-P020-052.jpg
+  AIM-P024-024.gif
+  AIM-P025-011.jpg
+  AIM-P028-002.jpg
+  AIM-P030-056.jpg
+  AIM-P032-059.jpg
+  AIM-P033-006.jpg
+  AIM-P042-038.jpg
+  AIM-P045-004.jpg
+  AIM-P046-005.gif
+  AIM-P047-007.jpg
+  AIM-P050-013.jpg
+  AIM-P051-042.jpg
+  AIM-P051-046.png
+  AIM-P054-006.png
+  AIM-P061-032.png
+  AIM-P063-034.jpg
+  AIM-P064-039.gif
+  AIM-P065-009.jpg
+  AIM-P065-024.jpg
+  AIM-P067-033.gif
+  AIM-P068-013.jpg
+  AIM-P070-028.jpg
+  AIM-P074-022.jpg
+  AIM-P076-032.gif
+  AIM-P076-059.jpg
+  AIM-P082-052.jpg
+  AIM-P083-011.jpg
+  AIM-P086-044.jpg
+  AIM-P087-002.jpg
+  AIM-P087-057.jpg
+  AIM-P089-042.jpg
+  AIM-P093-054.jpg
+  AIM-P094-013.jpg
+  AIM-P096-038.jpg
+  AIM-P096-039.jpg
+  AIM-P097-025.jpg
+  AIM-P097-028.jpg
+  AIM-P097-040.png
+  AIM-P097-042.jpg
+  AIM-P103-003.jpg
+  AIM-P106-031.jpg
+  AIM-P106-049.png
+  AIM-P111-056.jpg
+  AIM-P112-008.jpg
+  AIM-P113-029.jpg
+  AIM-P114-009.jpg
+  AIM-P114-053.jpg
+  AIM-P115-039.jpg
+  AIM-P115-047.jpg
+  AIM-P118-004.png
+  AIM-P118-005.png
+  AIM-P121-043.jpg
+  AIM-P125-010.jpg
+  AIM-P126-014.jpg
+  AIM-P127-055.jpg
+  AIM-P130-033.jpg
+  AIM-P130-042.jpg
+  AIM-P131-008.jpg
+  AIM-P132-055.gif
+  AIM-P133-006.gif
+  AIM-P135-013.png
+  AIM-P140-028.jpg
+  AIM-P140-031.jpg
+  AIM-P143-037.jpg
+  AIM-P143-043.jpg
+  AIM-P143-053.jpg
+  AIM-P143-058.jpg
+  AIM-P145-007.jpg
+  AIM-P146-017.jpg
+  AIM-P146-024.jpg
+  AIM-P150-045.jpg
+  AIM-P151-052.jpg
+  AIM-P153-006.jpg
+  AIM-P159-055.jpg
+  AIM-P170-044.jpg
+  AIM-P175-038.jpg
+  AIM-P175-044.jpg
+  AIM-P175-053.jpg
+  AIM-P175-054.jpg
+  AIM-P176-011.jpg
+  AIM-P176-038.jpg
+  AIM-P176-042.jpg
+  AIM-P176-045.jpg
+  AIM-P176-046.jpg
+  AIM-P176-055.jpg
+  AIM-P177-004.jpg
+  AIM-P177-016.jpg
+  AIM-P177-020.jpg
+  AIM-P177-023.jpg
+  AIM-P178-004.jpg
+  AIM-P178-005.jpg
+  AIM-P178-022.jpg
+  AIM-P178-025.jpg
+  AIM-P178-032.jpg
+  AIM-P178-059.jpg
+  AIM-P179-012.jpg
+  AIM-P179-016.jpg
+  AIM-P179-059.jpg
+  AIM-P180-019.jpg
+  AIM-P180-023.jpg
+  AIM-P180-024.jpg
+  AIM-P183-059.jpg
+  AIM-P184-052.jpg
+  AIM-P185-033.jpg
+  AIM-P191-020.jpg
+  AIM-P191-037.jpg
+  AIM-P191-041.jpg
+  AIM-P191-045.jpg
+  AIM-P191-047.jpg
+  AIM-P191-054.jpg
+  AIM-P192-012.jpg
+  AIM-P193-007.jpg
+  AIM-P195-004.jpg
+  AIM-P195-010.jpg
+  AIM-P195-017.jpg
+  AIM-P196-001.jpg
+  AIM-P196-007.jpg
+  AIM-P196-037.jpg
+  AIM-P197-008.jpg
+  AIM-P197-031.jpg
+  AIM-P198-003.jpg
+  AIM-P198-022.png
+  AIM-P198-040.jpg
+  AIM-P198-055.jpg
+  AIM-P199-001.jpg
+  AIM-P199-011.jpg
+  AIM-P200-045.jpg
+  AIM-P201-008.jpg
+  AIM-P202-007.jpg
+  AIM-P205-006.jpg
+  AIM-P207-039.jpg
+  AIM-P207-040.jpg
+  AIM-P207-041.jpg
+  AIM-P207-042.jpg
+  AIM-P207-047.jpg
+  AIM-P208-002.jpg
+  AIM-P209-050.jpg
+  AIM-P221-044.png
+  AIM-P222-028.jpg
+  AIM-P226-024.jpg
+  AIM-P227-050.jpg
+  AIM-P228-039.jpg
+  AIM-P235-013.jpg
+  AIM-P237-020.jpg
+  AIM-P237-046.jpg
+  AIM-P237-048.jpg
+  AIM-P238-007.jpg
+  AIM-P238-043.jpg
+  AIM-P239-030.jpg
+  AIM-P239-041.jpg
+  AIM-P241-035.jpg
+  AIM-P243-004.jpg
+  AIM-P244-017.png
+  AIM-P246-038.jpg
+  AIM-P246-057.jpg
+  AIM-P247-028.jpg
+  AIM-P247-051.jpg
+  AIM-P248-014.jpg
+  AIM-P249-021.png
+  AIM-P249-022.png
+  AIM-P249-023.jpg
+  AIM-P249-024.png
+  AIM-P249-026.jpg
+  AIM-P249-027.png
+  AIM-P249-046.png
+  AIM-P249-049.png
+  AIM-P249-051.png
+  AIM-P250-006.jpg
+  AIM-P250-007.png
+  AIM-P250-008.png
+  AIM-P250-009.png
+  AIM-P250-010.png
+  AIM-P250-011.png
+  AIM-P250-012.png
+  AIM-P250-013.png
+  AIM-P250-014.png
+  AIM-P250-023.png
+  AIM-P250-024.jpg
+  AIM-P250-025.jpg
+  AIM-P250-026.jpg
+  AIM-P250-027.jpg
+  AIM-P250-028.jpg
+  AIM-P250-029.jpg
+  AIM-P250-030.jpg
+  AIM-P250-034.png
+  AIM-P250-035.png
+  AIM-P250-036.png
+  AIM-P250-039.png
+  AIM-P250-040.png
+  AIM-P250-044.png
+  AIM-P250-045.png
+  AIM-P250-046.png
+  AIM-P250-054.png
+  AIM-P250-060.png
+  AIM-P252-004.png
+  AIM-P252-012.jpg
+  AIM-P252-040.png
+  AIM-P252-055.jpg
+  AIM-P252-056.jpg
+  AIM-P253-007.png
+  AIM-P253-015.jpg
+  AIM-P253-018.jpg
+  AIM-P253-031.png
+  AIM-P253-033.jpg
+  AIM-P253-040.jpg
+  AIM-P253-043.png
+  AIM-P253-044.png
+  AIM-P254-002.png
+  AIM-P254-005.jpg
+  AIM-P254-006.jpg
+  AIM-P254-007.jpg
+  AIM-P254-019.jpg
+  AIM-P254-032.png
+  AIM-P254-036.png
+  AIM-P254-037.png
+  AIM-P254-038.png
+  AIM-P255-003.png
+  AIM-P255-013.jpg
+  AIM-P255-028.png
+
+CASOS PARA REVISION HUMANA (dudosas + fallidas):
+  [DUDOSO] AIM-P004-017.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P004-042.jpg  ->  logo separado de bloque ancho x[88:679] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P006-019.jpg  ->  logo descartado x[15:125] | espalda no distinguible del fondo (revisar) | recorte pequeno 86x105
+  [DUDOSO] AIM-P008-008.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P010-005.jpg  ->  logo separado de bloque ancho x[17:23] | espalda no distinguible del fondo (revisar) | recorte pequeno 121x353
+  [DUDOSO] AIM-P010-017.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P010-051.jpg  ->  2 bandas (se esperaban 3) | frente/espalda fusionados, separados en x=412
+  [DUDOSO] AIM-P011-060.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P012-001.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[17:131] | frente/espalda fusionados, separados en x=304
+  [DUDOSO] AIM-P012-005.jpg  ->  logo separado de bloque ancho x[12:20] | espalda no distinguible del fondo (revisar) | recorte pequeno 145x359
+  [DUDOSO] AIM-P012-046.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P013-020.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P014-031.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P015-006.jpg  ->  2 bandas (se esperaban 3) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P016-052.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P016-054.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | logo separado de bloque ancho x[15:130] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P020-052.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[14:116] | frente/espalda fusionados, separados en x=400
+  [DUDOSO] AIM-P022-009.jpg  ->  logo separado de bloque ancho x[15:117] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P022-022.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P022-024.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P023-006.jpg  ->  logo separado de bloque ancho x[6:111] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P023-020.jpg  ->  logo descartado x[21:143] | fallback: sin frente/espalda, recorte por contenido (revisar) | frente no detectado (solo espalda)
+  [DUDOSO] AIM-P023-059.jpg  ->  logo separado de bloque ancho x[16:132] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P024-024.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[7:111] | frente/espalda fusionados, separados en x=401
+  [DUDOSO] AIM-P025-011.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P026-043.jpg  ->  logo separado de bloque ancho x[54:80] | espalda no distinguible del fondo (revisar) | recorte pequeno 427x1287
+  [DUDOSO] AIM-P027-057.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P028-002.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=175
+  [DUDOSO] AIM-P028-048.jpg  ->  logo separado de bloque ancho x[0:99] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P030-056.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P031-049.jpg  ->  logo separado de bloque ancho x[13:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P032-059.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P033-001.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P033-006.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P033-012.jpg  ->  logo separado de bloque ancho x[17:117] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P033-037.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P035-040.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P036-012.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P037-002.jpg  ->  logo separado de bloque ancho x[12:114] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P039-008.jpg  ->  espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P041-043.jpg  ->  logo separado de bloque ancho x[16:132] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P042-022.jpg  ->  logo separado de bloque ancho x[15:21] | espalda no distinguible del fondo (revisar) | recorte pequeno 121x352
+  [DUDOSO] AIM-P042-038.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | logo separado de bloque ancho x[15:130] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P043-025.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P045-004.jpg  ->  2 bandas (se esperaban 3) | frente/espalda fusionados, separados en x=400
+  [DUDOSO] AIM-P046-005.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[14:115] | frente/espalda fusionados, separados en x=397
+  [DUDOSO] AIM-P046-040.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P047-007.jpg  ->  5 bandas (se esperaban 3) | logo separado de bloque ancho x[0:117] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P047-023.jpg  ->  logo descartado x[15:125] | espalda no distinguible del fondo (revisar) | recorte pequeno 108x352
+  [DUDOSO] AIM-P048-051.jpg  ->  espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P049-015.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P050-013.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P051-041.jpg  ->  logo separado de bloque ancho x[13:114] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P051-042.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P051-046.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[15:116] | frente/espalda fusionados, separados en x=398
+  [DUDOSO] AIM-P054-006.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[14:115] | frente/espalda fusionados, separados en x=397
+  [DUDOSO] AIM-P054-060.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P058-002.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P059-009.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P061-032.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[14:115] | frente/espalda fusionados, separados en x=397
+  [DUDOSO] AIM-P062-058.jpg  ->  logo descartado x[15:125] | frente no detectado (solo espalda)
+  [DUDOSO] AIM-P063-028.jpg  ->  logo separado de bloque ancho x[15:21] | espalda no distinguible del fondo (revisar) | recorte pequeno 121x352
+  [DUDOSO] AIM-P063-034.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[9:65] | frente/espalda fusionados, separados en x=223
+  [DUDOSO] AIM-P064-039.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[20:120] | frente/espalda fusionados, separados en x=396
+  [DUDOSO] AIM-P065-009.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[15:130] | frente/espalda fusionados, separados en x=421
+  [DUDOSO] AIM-P065-024.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P067-001.jpg  ->  logo separado de bloque ancho x[14:117] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P067-021.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P067-033.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[24:122] | frente/espalda fusionados, separados en x=394
+  [DUDOSO] AIM-P068-013.jpg  ->  2 bandas (se esperaban 3) | frente/espalda fusionados, separados en x=504
+  [DUDOSO] AIM-P070-028.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[15:115] | frente/espalda fusionados, separados en x=398
+  [DUDOSO] AIM-P071-041.jpg  ->  logo separado de bloque ancho x[14:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P072-040.jpg  ->  logo separado de bloque ancho x[14:117] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P074-022.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[15:117] | frente/espalda fusionados, separados en x=408
+  [DUDOSO] AIM-P076-032.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[15:118] | frente/espalda fusionados, separados en x=403
+  [DUDOSO] AIM-P076-059.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[10:83] | frente/espalda fusionados, separados en x=285
+  [DUDOSO] AIM-P078-058.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P082-052.jpg  ->  2 bandas (se esperaban 3) | frente/espalda fusionados, separados en x=397
+  [DUDOSO] AIM-P083-011.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[9:73] | frente/espalda fusionados, separados en x=232
+  [DUDOSO] AIM-P086-027.jpg  ->  logo descartado x[15:125] | fallback: sin frente/espalda, recorte por contenido (revisar) | frente no detectado (solo espalda)
+  [DUDOSO] AIM-P086-044.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[9:66] | frente/espalda fusionados, separados en x=226
+  [DUDOSO] AIM-P087-002.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[9:66] | frente/espalda fusionados, separados en x=226
+  [DUDOSO] AIM-P087-057.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P089-042.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P092-016.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P092-041.jpg  ->  logo separado de bloque ancho x[17:119] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P093-004.jpg  ->  espalda no distinguible del fondo (revisar) | recorte pequeno 162x352
+  [DUDOSO] AIM-P093-054.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[7:114] | frente/espalda fusionados, separados en x=395
+  [DUDOSO] AIM-P094-013.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[7:114] | frente/espalda fusionados, separados en x=393
+  [DUDOSO] AIM-P096-038.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[9:65] | frente/espalda fusionados, separados en x=225
+  [DUDOSO] AIM-P096-039.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[11:117] | frente/espalda fusionados, separados en x=388
+  [DUDOSO] AIM-P097-025.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[0:102] | frente/espalda fusionados, separados en x=371
+  [DUDOSO] AIM-P097-028.jpg  ->  2 bandas (se esperaban 3) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P097-040.jpg  ->  5 bandas (se esperaban 3) | logo separado de bloque ancho x[0:116] | frente/espalda fusionados, separados en x=397
+  [DUDOSO] AIM-P097-042.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[5:109] | frente/espalda fusionados, separados en x=395
+  [DUDOSO] AIM-P103-003.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[15:117] | frente/espalda fusionados, separados en x=396
+  [DUDOSO] AIM-P106-031.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[15:115] | frente/espalda fusionados, separados en x=395
+  [DUDOSO] AIM-P106-049.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[14:115] | frente/espalda fusionados, separados en x=398
+  [DUDOSO] AIM-P108-006.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P110-003.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P111-036.jpg  ->  logo separado de bloque ancho x[16:23] | espalda no distinguible del fondo (revisar) | recorte pequeno 134x380
+  [DUDOSO] AIM-P111-056.jpg  ->  2 bandas (se esperaban 3) | frente/espalda fusionados, separados en x=394
+  [DUDOSO] AIM-P112-008.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[14:115] | frente/espalda fusionados, separados en x=391
+  [DUDOSO] AIM-P113-029.jpg  ->  2 bandas (se esperaban 3) | frente/espalda fusionados, separados en x=398
+  [DUDOSO] AIM-P114-009.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[15:117] | frente/espalda fusionados, separados en x=397
+  [DUDOSO] AIM-P114-053.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[15:115] | frente/espalda fusionados, separados en x=351
+  [DUDOSO] AIM-P115-039.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[11:96] | frente/espalda fusionados, separados en x=303
+  [DUDOSO] AIM-P115-047.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[13:115] | frente/espalda fusionados, separados en x=398
+  [DUDOSO] AIM-P118-004.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[14:116] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P118-005.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[14:115] | frente/espalda fusionados, separados en x=398
+  [DUDOSO] AIM-P121-043.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[12:130] | frente/espalda fusionados, separados en x=408
+  [DUDOSO] AIM-P124-052.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P125-010.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[15:130] | frente/espalda fusionados, separados en x=407
+  [DUDOSO] AIM-P126-014.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P127-055.jpg  ->  2 bandas (se esperaban 3) | frente/espalda fusionados, separados en x=412
+  [DUDOSO] AIM-P130-033.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P130-042.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:106] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P131-008.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=345
+  [DUDOSO] AIM-P132-055.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=440
+  [DUDOSO] AIM-P133-006.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P134-009.jpg  ->  espalda no distinguible del fondo (revisar) | recorte pequeno 229x559
+  [DUDOSO] AIM-P135-013.jpg  ->  2 bandas (se esperaban 3) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P135-025.jpg  ->  logo separado de bloque ancho x[19:119] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P135-041.jpg  ->  logo separado de bloque ancho x[19:119] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P136-049.jpg  ->  logo separado de bloque ancho x[5:12] | espalda no distinguible del fondo (revisar) | recorte pequeno 128x362
+  [DUDOSO] AIM-P138-005.jpg  ->  espalda no distinguible del fondo (revisar) | recorte pequeno 206x497
+  [DUDOSO] AIM-P139-018.jpg  ->  logo separado de bloque ancho x[1:105] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P139-022.jpg  ->  logo separado de bloque ancho x[1:106] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P140-028.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P140-031.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[12:127] | frente/espalda fusionados, separados en x=402
+  [DUDOSO] AIM-P141-043.jpg  ->  logo separado de bloque ancho x[19:119] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P143-037.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:94] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P143-043.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[18:25]
+  [DUDOSO] AIM-P143-053.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[18:25]
+  [DUDOSO] AIM-P143-058.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[18:25]
+  [DUDOSO] AIM-P144-041.jpg  ->  logo separado de bloque ancho x[19:119] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P145-007.jpg  ->  5 bandas (se esperaban 3) | logo separado de bloque ancho x[0:7]
+  [DUDOSO] AIM-P146-003.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P146-017.jpg  ->  2 bandas (se esperaban 3) | frente/espalda fusionados, separados en x=198
+  [DUDOSO] AIM-P146-024.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P146-049.jpg  ->  logo separado de bloque ancho x[0:101] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P146-057.jpg  ->  logo separado de bloque ancho x[0:101] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P147-039.jpg  ->  logo separado de bloque ancho x[13:114] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P148-037.jpg  ->  logo separado de bloque ancho x[0:125] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P150-003.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P150-045.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P151-011.jpg  ->  logo separado de bloque ancho x[19:119] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P151-014.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P151-019.jpg  ->  logo separado de bloque ancho x[18:24] | espalda no distinguible del fondo (revisar) | recorte pequeno 123x353
+  [DUDOSO] AIM-P151-052.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:104] | frente/espalda fusionados, separados en x=400
+  [DUDOSO] AIM-P153-006.jpg  ->  4 bandas (se esperaban 3)
+  [DUDOSO] AIM-P154-005.jpg  ->  logo separado de bloque ancho x[3:106] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P154-009.jpg  ->  logo separado de bloque ancho x[19:119] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P156-002.jpg  ->  espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P156-037.jpg  ->  logo separado de bloque ancho x[19:119] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P159-040.jpg  ->  logo separado de bloque ancho x[14:114] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P159-055.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[22:122] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P160-011.jpg  ->  logo separado de bloque ancho x[18:118] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P160-055.jpg  ->  logo separado de bloque ancho x[0:119] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P162-024.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P163-018.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P163-031.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P166-056.jpg  ->  logo separado de bloque ancho x[0:100] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P169-028.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P170-044.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[15:121] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P171-012.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P173-020.jpg  ->  logo separado de bloque ancho x[14:114] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P173-029.jpg  ->  logo separado de bloque ancho x[14:114] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P175-002.jpg  ->  logo separado de bloque ancho x[15:22] | espalda no distinguible del fondo (revisar) | recorte pequeno 126x352
+  [DUDOSO] AIM-P175-038.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[2:108] | frente/espalda fusionados, separados en x=394
+  [DUDOSO] AIM-P175-044.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[4:109] | frente/espalda fusionados, separados en x=391
+  [DUDOSO] AIM-P175-053.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[5:111] | frente/espalda fusionados, separados en x=401
+  [DUDOSO] AIM-P175-054.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[5:110] | frente/espalda fusionados, separados en x=400
+  [DUDOSO] AIM-P176-011.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[5:111] | frente/espalda fusionados, separados en x=400
+  [DUDOSO] AIM-P176-038.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[1:107] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P176-042.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[2:108] | frente/espalda fusionados, separados en x=403
+  [DUDOSO] AIM-P176-045.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:106] | frente/espalda fusionados, separados en x=395
+  [DUDOSO] AIM-P176-046.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[2:108] | frente/espalda fusionados, separados en x=398
+  [DUDOSO] AIM-P176-055.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[2:108] | frente/espalda fusionados, separados en x=397
+  [DUDOSO] AIM-P177-004.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[2:108] | frente/espalda fusionados, separados en x=397
+  [DUDOSO] AIM-P177-016.jpg  ->  4 bandas (se esperaban 3) | logo descartado x[8:121] | frente/espalda fusionados, separados en x=404
+  [DUDOSO] AIM-P177-020.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[5:111] | frente/espalda fusionados, separados en x=403
+  [DUDOSO] AIM-P177-023.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[4:109] | frente/espalda fusionados, separados en x=400
+  [DUDOSO] AIM-P178-004.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:106] | frente/espalda fusionados, separados en x=397
+  [DUDOSO] AIM-P178-005.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[4:110] | frente/espalda fusionados, separados en x=401
+  [DUDOSO] AIM-P178-022.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:105] | frente/espalda fusionados, separados en x=398
+  [DUDOSO] AIM-P178-025.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:106] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P178-032.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[6:111] | frente/espalda fusionados, separados en x=402
+  [DUDOSO] AIM-P178-059.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:117] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P179-012.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[3:109] | frente/espalda fusionados, separados en x=401
+  [DUDOSO] AIM-P179-016.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[4:112] | frente/espalda fusionados, separados en x=401
+  [DUDOSO] AIM-P179-059.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[4:110] | frente/espalda fusionados, separados en x=403
+  [DUDOSO] AIM-P180-019.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[5:110] | frente/espalda fusionados, separados en x=400
+  [DUDOSO] AIM-P180-023.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[1:108] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P180-024.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[1:107] | frente/espalda fusionados, separados en x=402
+  [DUDOSO] AIM-P183-059.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:103] | frente/espalda fusionados, separados en x=401
+  [DUDOSO] AIM-P184-052.jpg  ->  2 bandas (se esperaban 3) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P185-033.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[0:106] | frente/espalda fusionados, separados en x=413
+  [DUDOSO] AIM-P186-048.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P188-052.jpg  ->  espalda no distinguible del fondo (revisar) | recorte pequeno 163x352
+  [DUDOSO] AIM-P188-057.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P191-008.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P191-020.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[8:15]
+  [DUDOSO] AIM-P191-033.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P191-037.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:105] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P191-041.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[4:110] | frente/espalda fusionados, separados en x=402
+  [DUDOSO] AIM-P191-045.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:106] | frente/espalda fusionados, separados en x=397
+  [DUDOSO] AIM-P191-047.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[3:109] | frente/espalda fusionados, separados en x=400
+  [DUDOSO] AIM-P191-054.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:102] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P192-012.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[19:122] | frente/espalda fusionados, separados en x=397
+  [DUDOSO] AIM-P193-007.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[6:110] | frente/espalda fusionados, separados en x=400
+  [DUDOSO] AIM-P195-004.jpg  ->  5 bandas (se esperaban 3) | logo separado de bloque ancho x[2:107] | frente/espalda fusionados, separados en x=395
+  [DUDOSO] AIM-P195-010.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[12:114] | frente/espalda fusionados, separados en x=390
+  [DUDOSO] AIM-P195-017.jpg  ->  5 bandas (se esperaban 3) | logo separado de bloque ancho x[3:109] | frente/espalda fusionados, separados en x=400
+  [DUDOSO] AIM-P195-034.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P196-001.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:105] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P196-007.jpg  ->  5 bandas (se esperaban 3) | logo separado de bloque ancho x[2:108] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P196-037.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[0:102] | frente/espalda fusionados, separados en x=401
+  [DUDOSO] AIM-P196-058.jpg  ->  espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P197-008.jpg  ->  5 bandas (se esperaban 3) | logo separado de bloque ancho x[10:113] | frente/espalda fusionados, separados en x=397
+  [DUDOSO] AIM-P197-031.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[10:114] | frente/espalda fusionados, separados en x=393
+  [DUDOSO] AIM-P198-003.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[13:116] | frente/espalda fusionados, separados en x=397
+  [DUDOSO] AIM-P198-022.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P198-040.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[13:118]
+  [DUDOSO] AIM-P198-055.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[8:113] | frente/espalda fusionados, separados en x=398
+  [DUDOSO] AIM-P199-001.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[4:108] | frente/espalda fusionados, separados en x=391
+  [DUDOSO] AIM-P199-011.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[2:111] | frente/espalda fusionados, separados en x=402
+  [DUDOSO] AIM-P200-045.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[1:107] | frente/espalda fusionados, separados en x=396
+  [DUDOSO] AIM-P201-008.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:109] | frente/espalda fusionados, separados en x=400
+  [DUDOSO] AIM-P202-007.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[2:108] | frente/espalda fusionados, separados en x=396
+  [DUDOSO] AIM-P205-006.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[11:130] | frente/espalda fusionados, separados en x=408
+  [DUDOSO] AIM-P207-039.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=264
+  [DUDOSO] AIM-P207-040.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | logo separado de bloque ancho x[9:48] | frente/espalda fusionados, separados en x=508
+  [DUDOSO] AIM-P207-041.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=504
+  [DUDOSO] AIM-P207-042.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=537
+  [DUDOSO] AIM-P207-047.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=497
+  [DUDOSO] AIM-P208-002.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[15:116] | frente/espalda fusionados, separados en x=396
+  [DUDOSO] AIM-P209-032.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P209-050.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[4:109] | frente/espalda fusionados, separados en x=400
+  [DUDOSO] AIM-P213-032.jpg  ->  espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P216-030.jpg  ->  logo separado de bloque ancho x[0:103] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P218-060.jpg  ->  espalda no distinguible del fondo (revisar) | recorte pequeno 158x353
+  [DUDOSO] AIM-P219-016.jpg  ->  logo separado de bloque ancho x[0:105] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P220-029.jpg  ->  logo separado de bloque ancho x[15:22] | espalda no distinguible del fondo (revisar) | recorte pequeno 125x352
+  [DUDOSO] AIM-P221-044.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:116] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P222-028.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:116] | frente/espalda fusionados, separados en x=397
+  [DUDOSO] AIM-P225-023.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P226-024.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[4:110] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P226-055.jpg  ->  logo separado de bloque ancho x[0:102] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P227-050.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[25:124] | frente/espalda fusionados, separados en x=394
+  [DUDOSO] AIM-P227-051.jpg  ->  logo separado de bloque ancho x[15:22] | espalda no distinguible del fondo (revisar) | recorte pequeno 127x353
+  [DUDOSO] AIM-P228-039.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[11:96] | frente/espalda fusionados, separados en x=293
+  [DUDOSO] AIM-P229-021.jpg  ->  logo separado de bloque ancho x[9:81] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P232-013.jpg  ->  logo separado de bloque ancho x[15:22] | espalda no distinguible del fondo (revisar) | recorte pequeno 126x356
+  [DUDOSO] AIM-P233-052.jpg  ->  espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P235-013.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[13:119] | frente/espalda fusionados, separados en x=400
+  [DUDOSO] AIM-P237-020.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[2:109] | frente/espalda fusionados, separados en x=400
+  [DUDOSO] AIM-P237-046.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[16:116] | frente/espalda fusionados, separados en x=383
+  [DUDOSO] AIM-P237-048.jpg  ->  2 bandas (se esperaban 3) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P237-050.jpg  ->  logo separado de bloque ancho x[1:108] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P238-007.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[14:130] | frente/espalda fusionados, separados en x=408
+  [DUDOSO] AIM-P238-019.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P238-043.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[15:115] | frente/espalda fusionados, separados en x=408
+  [DUDOSO] AIM-P239-030.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:109] | frente/espalda fusionados, separados en x=397
+  [DUDOSO] AIM-P239-041.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[2:108] | frente/espalda fusionados, separados en x=396
+  [DUDOSO] AIM-P240-010.jpg  ->  espalda no distinguible del fondo (revisar) | recorte pequeno 132x375
+  [DUDOSO] AIM-P240-024.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P241-014.jpg  ->  logo separado de bloque ancho x[0:100] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P241-035.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[4:111] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P243-003.jpg  ->  espalda no distinguible del fondo (revisar) | recorte pequeno 230x496
+  [DUDOSO] AIM-P243-004.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[1:108] | frente/espalda fusionados, separados en x=401
+  [DUDOSO] AIM-P243-022.jpg  ->  logo separado de bloque ancho x[15:115] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P244-017.jpg  ->  2 bandas (se esperaban 3) | frente/espalda fusionados, separados en x=193
+  [DUDOSO] AIM-P244-035.jpg  ->  espalda no distinguible del fondo (revisar) | recorte pequeno 143x376
+  [DUDOSO] AIM-P245-015.jpg  ->  logo separado de bloque ancho x[15:118] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P246-038.jpg  ->  5 bandas (se esperaban 3) | logo separado de bloque ancho x[4:110] | frente/espalda fusionados, separados en x=400
+  [DUDOSO] AIM-P246-039.jpg  ->  logo separado de bloque ancho x[15:116] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P246-057.jpg  ->  2 bandas (se esperaban 3) | frente/espalda fusionados, separados en x=396
+  [DUDOSO] AIM-P247-028.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:106] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P247-051.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[16:119] | frente/espalda fusionados, separados en x=399
+  [DUDOSO] AIM-P247-057.jpg  ->  logo separado de bloque ancho x[16:132] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P248-014.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[8:110] | frente/espalda fusionados, separados en x=396
+  [DUDOSO] AIM-P249-011.jpg  ->  logo separado de bloque ancho x[0:100] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P249-021.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=261
+  [DUDOSO] AIM-P249-022.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=237
+  [DUDOSO] AIM-P249-023.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=348
+  [DUDOSO] AIM-P249-024.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P249-026.jpg  ->  2 bandas (se esperaban 3) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P249-027.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[7:104] | frente/espalda fusionados, separados en x=375
+  [DUDOSO] AIM-P249-029.jpg  ->  logo descartado x[0:105] | frente no detectado (solo espalda)
+  [DUDOSO] AIM-P249-046.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[3:98] | frente/espalda fusionados, separados en x=360
+  [DUDOSO] AIM-P249-047.jpg  ->  logo separado de bloque ancho x[0:6] | espalda no distinguible del fondo (revisar) | recorte pequeno 123x338
+  [DUDOSO] AIM-P249-049.jpg  ->  5 bandas (se esperaban 3) | logo separado de bloque ancho x[1:97]
+  [DUDOSO] AIM-P249-051.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P250-006.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=349
+  [DUDOSO] AIM-P250-007.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=512
+  [DUDOSO] AIM-P250-008.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=287
+  [DUDOSO] AIM-P250-009.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=184
+  [DUDOSO] AIM-P250-010.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=180
+  [DUDOSO] AIM-P250-011.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=121
+  [DUDOSO] AIM-P250-012.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=227
+  [DUDOSO] AIM-P250-013.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=450
+  [DUDOSO] AIM-P250-014.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P250-023.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=327
+  [DUDOSO] AIM-P250-024.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P250-025.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=346
+  [DUDOSO] AIM-P250-026.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=349
+  [DUDOSO] AIM-P250-027.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=348
+  [DUDOSO] AIM-P250-028.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=328
+  [DUDOSO] AIM-P250-029.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=350
+  [DUDOSO] AIM-P250-030.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[6:109] | frente/espalda fusionados, separados en x=387
+  [DUDOSO] AIM-P250-034.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P250-035.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P250-036.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P250-039.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | logo separado de bloque ancho x[0:91] | frente/espalda fusionados, separados en x=371
+  [DUDOSO] AIM-P250-040.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=255
+  [DUDOSO] AIM-P250-044.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=311
+  [DUDOSO] AIM-P250-045.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=313
+  [DUDOSO] AIM-P250-046.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico)
+  [DUDOSO] AIM-P250-054.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=529
+  [DUDOSO] AIM-P250-060.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P252-004.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:96] | frente/espalda fusionados, separados en x=364
+  [DUDOSO] AIM-P252-012.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P252-040.jpg  ->  2 bandas (se esperaban 3) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P252-055.jpg  ->  2 bandas (se esperaban 3) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P252-056.jpg  ->  2 bandas (se esperaban 3) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P253-007.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P253-015.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P253-018.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[0:107] | frente/espalda fusionados, separados en x=432
+  [DUDOSO] AIM-P253-031.jpg  ->  2 bandas (se esperaban 3) | logo separado de bloque ancho x[3:66] | frente/espalda fusionados, separados en x=238
+  [DUDOSO] AIM-P253-033.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P253-040.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P253-043.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:118] | frente/espalda fusionados, separados en x=457
+  [DUDOSO] AIM-P253-044.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:110] | frente/espalda fusionados, separados en x=449
+  [DUDOSO] AIM-P254-002.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=177
+  [DUDOSO] AIM-P254-005.jpg  ->  2 bandas (se esperaban 3) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P254-006.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P254-007.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P254-019.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P254-024.jpg  ->  logo separado de bloque ancho x[6:117] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P254-032.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P254-036.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:111] | frente/espalda fusionados, separados en x=426
+  [DUDOSO] AIM-P254-037.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | frente/espalda fusionados, separados en x=496
+  [DUDOSO] AIM-P254-038.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P255-003.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[0:73]
+  [DUDOSO] AIM-P255-013.jpg  ->  1 bandas (se esperaban 3) | sin cabecera ni pie (formato atipico) | logo separado de bloque ancho x[0:108] | espalda no distinguible del fondo (revisar)
+  [DUDOSO] AIM-P255-028.jpg  ->  4 bandas (se esperaban 3) | logo separado de bloque ancho x[17:125] | frente/espalda fusionados, separados en x=428
