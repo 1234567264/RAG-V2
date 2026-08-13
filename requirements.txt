@@ -1,0 +1,21 @@
+# ── Dependencias API (Sala 3) ──
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+sentence-transformers>=2.6.0
+
+# ── Embeddings y procesamiento de imágenes (Sala 4) ──
+torch>=2.0.0
+torchvision>=0.15.0
+transformers>=4.30.0
+Pillow>=9.0.0
+opencv-python>=4.8.0
+
+# ── Interfaz (Sala 2) ──
+streamlit>=1.35
+requests>=2.31
+
+# ── Datos y utilidades comunes ──
+pandas>=2.0
+numpy>=1.24
+openpyxl>=3.1
