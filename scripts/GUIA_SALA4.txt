@@ -1,0 +1,84 @@
+======================================================================
+         GUIA DE INSTALACION Y EJECUCION - SALA 4 (CLIP)
+======================================================================
+
+1. REQUISITOS A INSTALAR
+----------------------------------------------------------------------
+Abre la terminal en la carpeta principal e instala únicamente
+las librerias necesarias para el procesamiento de imagenes e IA:
+
+   pip install torch torchvision transformers pillow numpy
+
+   (requirements.txt puede contener todas las dependencias del proyecto)
+
+
+2. ARCHIVOS DEL MODULO (SALA 4)
+----------------------------------------------------------------------
+Asegurate de que tus archivos esten ubicados en estas rutas:
+
+   webScraping-v2/
+   │
+   ├── data/
+   │   ├── products.csv        <- CSV entregado por Sala 1 (orden de lectura)
+   │   ├── images_final/       <- Carpeta con las imagenes referenciadas en el CSV
+   │   ├── embeddings.npy      <- Salida: matriz de vectores N x 512 (normalizados L2)
+   │   └── ids.npy             <- Salida: IDs en el mismo orden que embeddings.npy
+   │
+   ├── generar_embeddings.py   <- Script 1: Convierte imagenes a vectores
+   ├── buscar_por_imagen.py    <- Script 2: Busca por similitud coseno (Top 5)
+   └── GUIA_SALA4.txt          <- Este archivo de guia
+
+
+3. ORDEN DE EJECUCION
+----------------------------------------------------------------------
+
+   PASO 1: Generar la base de vectores (Embeddings)
+   Lee data/products.csv en su orden exacto, abre cada imagen, genera su
+   embedding con el modelo openai/clip-vit-base-patch32 en lotes de 16,
+   normaliza cada vector con L2 y guarda las dos rutas estandar:
+
+      python generar_embeddings.py
+
+   Al finalizar imprime el reporte de estado obligatorio:
+
+      Productos en CSV: 1000
+      Embeddings generados: 1000
+      IDs guardados: 1000
+      Dimensiones: 512
+      Errores: 0
+
+
+   PASO 2: Probar la busqueda visual por similitud
+   Envia una imagen de prueba para obtener las 5 mas parecidas:
+
+      python buscar_por_imagen.py data/images_final/AIM-P001-001.jpg
+
+
+4. PRUEBAS CON IMAGENES EXTERNAS (fuera de la biblioteca base)
+----------------------------------------------------------------------
+Ejecuta al menos 3 tipos de imagenes externas: una muy parecida, otra con
+colores diferentes y una no relacionada, midiendo el tiempo de consulta:
+
+   python buscar_por_imagen.py --test-externo \
+       test/muy_parecida.jpg \
+       test/colores_diferentes.jpg \
+       test/no_relacionada.jpg
+
+NOTA SOBRE EL SCORE DE SIMILITUD
+----------------------------------------------------------------------
+El valor devuelto es un "score de similitud": una medida de cercania
+matematica entre dos vectores dentro del espacio vectorial aprendido por el
+modelo CLIP (similitud coseno, rango -1 a 1). NO es un porcentaje de
+coincidencia, NI una confianza, NI la probabilidad de que sea el mismo
+diseno. Un score alto indica que el modelo representa ambas imagenes de
+forma parecida, no que el diseno sea identico.
+
+
+5. VERIFICACION RAPIDA DE VECTORES (OPCIONAL)
+----------------------------------------------------------------------
+Para comprobar desde la terminal que el indice es consistente
+(embeddings y ids alineados, vectores normalizados L2):
+
+   python -c "import numpy as np; e=np.load('data/embeddings.npy'); i=np.load('data/ids.npy',allow_pickle=True); n=np.linalg.norm(e,axis=1); print('Embeddings:',e.shape); print('IDs:',len(i)); print('Normalizados L2 (max diff a 1):', round(float(abs(n-1).max()),6)); print('ID pos 0:', i[0])"
+
+======================================================================

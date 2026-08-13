@@ -1,0 +1,21 @@
+grupo,archivo,descripcion,resultado_esperado,estado
+A,test_01_A.jpg,Imagen en biblioteca (coincide AIM-P002-083 Guadalcacin Blue),Top 1 = misma imagen (score ~1.0),completado
+A,test_02_A.jpg,Imagen en biblioteca (coincide AIM-P002-098 Inter Milan 2026-2027),Top 1 = misma imagen (score ~1.0),completado
+A,test_03_A.jpg,Imagen en biblioteca (coincide AIM-P002-113 Garra de Tigre),Top 1 = misma imagen (score ~1.0),completado
+A,test_04_A.jpg,Imagen en biblioteca (coincide AIM-P003-128 Cañeras Sports Degrade),Top 1 = misma imagen (score ~1.0),completado
+A,test_05_A.jpg,Imagen en biblioteca (coincide AIM-P003-143 Gladeador Black Sports),Top 1 = misma imagen (score ~1.0),completado
+B,test_06_B.jpg,Externa muy parecida (transformada de catalogo),Al menos 1 resultado Top 5 relacionado,completado
+B,test_07_B.jpg,Externa muy parecida (transformada de catalogo),Al menos 1 resultado Top 5 relacionado,completado
+B,test_08_B.jpg,Externa muy parecida (transformada de catalogo),Al menos 1 resultado Top 5 relacionado,completado
+B,test_09_B.jpg,Externa muy parecida (transformada de catalogo),Al menos 1 resultado Top 5 relacionado,completado
+B,test_10_B.jpg,Externa muy parecida (transformada de catalogo),Al menos 1 resultado Top 5 relacionado,completado
+C,test_11_C.png,Camiseta otro estilo,"Algunos resultados utiles, otros no",completado
+C,test_12_C.png,Camiseta otro estilo,"Algunos resultados utiles, otros no",completado
+C,test_13_C.png,Camiseta otro estilo,"Algunos resultados utiles, otros no",completado
+C,test_14_C.png,Camiseta otro estilo,"Algunos resultados utiles, otros no",completado
+C,test_15_C.png,Camiseta otro estilo,"Algunos resultados utiles, otros no",completado
+D,test_16_D.jpg,No es camiseta: paisaje,Scores bajos; marcar Incorrecto,completado
+D,test_17_D.jpg,No es camiseta: persona,Scores bajos; marcar Incorrecto,completado
+D,test_18_D.jpg,No es camiseta: texto/logo,Scores bajos; marcar Incorrecto,completado
+D,test_19_D.jpg,No es camiseta: comida,Scores bajos; marcar Incorrecto,completado
+D,test_20_D.jpg,No es camiseta: objeto,Scores bajos; marcar Incorrecto,completado
