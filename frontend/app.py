@@ -72,74 +72,215 @@ st.set_page_config(
 
 CSS = """
 <style>
+    @keyframes cardIn {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: none; }
+    }
+
     .stApp {
         background:
-            radial-gradient(1100px 550px at 12% -8%, rgba(79,172,254,.16), transparent 60%),
-            radial-gradient(900px 480px at 92% 0%, rgba(0,242,254,.10), transparent 55%),
-            linear-gradient(160deg, #0b1220 0%, #0d1526 55%, #101a30 100%);
+            radial-gradient(1200px 620px at 14% -12%, rgba(56,132,255,.15), transparent 60%),
+            radial-gradient(1000px 540px at 90% -6%, rgba(0,220,255,.10), transparent 55%),
+            radial-gradient(1000px 640px at 50% 118%, rgba(122,84,255,.08), transparent 62%),
+            linear-gradient(172deg, #05070d 0%, #070b16 55%, #0a0f1e 100%);
+        font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
-    .block-container { max-width: 1280px; padding-top: 1.4rem; }
-    .hero { margin-bottom: .9rem; }
+    #MainMenu { visibility: hidden; }
+    footer { visibility: hidden; }
+    header[data-testid="stHeader"] { background: transparent; }
+    [data-testid="stToolbar"] { visibility: hidden; }
+    .block-container { max-width: 1140px; padding-top: 2.6rem; padding-bottom: 4rem; }
+
+    /* ---------- Hero ---------- */
+    .eyebrow { display: flex; align-items: center; gap: .55rem; margin-bottom: 1.1rem; }
+    .eyebrow-dot {
+        width: .55rem; height: .55rem; border-radius: 50%;
+        background: linear-gradient(135deg, #00f2fe, #3a7bd5);
+        box-shadow: 0 0 12px rgba(0,210,255,.85);
+        animation: pulse 2.6s ease-in-out infinite;
+    }
+    @keyframes pulse {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(0,210,255,.45); }
+        50%      { box-shadow: 0 0 0 6px rgba(0,210,255,0); }
+    }
+    .eyebrow-text {
+        text-transform: uppercase; letter-spacing: .3em; font-size: .7rem;
+        font-weight: 700; color: #8fb4e8;
+    }
     .hero-title {
-        font-size: 2.4rem; font-weight: 800; letter-spacing: -.5px; line-height: 1.1;
-        background: linear-gradient(92deg, #f5f9ff 10%, #7fd4ff 55%, #00f2fe 90%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        background-clip: text; margin: 0;
+        font-size: clamp(2.1rem, 4.8vw, 3.35rem); font-weight: 800;
+        letter-spacing: -.02em; line-height: 1.08; margin: 0 0 1rem;
+        background: linear-gradient(94deg, #ffffff 0%, #cfe8ff 45%, #7fd4ff 78%, #00f2fe 100%);
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
-    .hero-sub { color: #93a4c0; font-size: 1.0rem; margin-top: .35rem; }
-    .chip {
-        display: inline-block; padding: .18rem .7rem; border-radius: 999px;
-        font-size: .78rem; font-weight: 600; letter-spacing: .2px;
-        border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.05);
-        color: #cfe0f5; margin: .15rem .4rem .15rem 0; white-space: nowrap;
+    .hero-sub {
+        color: #9aa9c4; font-size: clamp(.98rem, 1.4vw, 1.08rem); line-height: 1.6;
+        max-width: 580px; margin: 0 0 1.2rem;
     }
-    .chip-ok { color: #8ef0c1; border-color: rgba(46,204,113,.45); background: rgba(46,204,113,.10); }
-    .chip-err { color: #ffb4b4; border-color: rgba(255,80,80,.45); background: rgba(255,80,80,.10); }
+    .hero-meta {
+        display: flex; flex-wrap: wrap; align-items: center; gap: .5rem;
+        color: #7c8bab; font-size: .83rem;
+    }
+    .dot { width: .5rem; height: .5rem; border-radius: 50%; display: inline-block; margin-right: .35rem; }
+    .dot-ok { background: #34d399; box-shadow: 0 0 8px rgba(52,211,153,.7); }
+    .dot-err { background: #f87171; box-shadow: 0 0 8px rgba(248,113,113,.7); }
+    .hero-meta-err { color: #f8a8a8; font-size: .8rem; margin-top: .45rem; }
+
+    /* ---------- Área de subida ---------- */
+    .upload-title { font-size: 1.22rem; font-weight: 650; color: #eef4ff; margin: 2.1rem 0 .2rem; }
+    .upload-hint { font-size: .83rem; color: #7c8bab; margin-bottom: .9rem; }
+    div[data-testid="stFileUploader"] section {
+        border: 1.5px dashed rgba(125,170,230,.38) !important;
+        border-radius: 22px !important;
+        background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015)) !important;
+        backdrop-filter: blur(12px);
+        min-height: 250px;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
+    }
+    div[data-testid="stFileUploader"] section:hover {
+        border-color: rgba(0,210,255,.8) !important;
+        box-shadow: 0 0 0 1px rgba(0,210,255,.15), 0 26px 80px rgba(0,140,255,.18);
+        background: linear-gradient(180deg, rgba(0,210,255,.05), rgba(255,255,255,.02)) !important;
+    }
+    div[data-testid="stFileUploader"] section:not(:has(div[data-testid="stFileUploaderDropzoneInstructions"])) {
+        min-height: 90px;
+    }
+    div[data-testid="stFileUploaderDropzoneInstructions"] { display: none !important; }
+    div[data-testid="stFileUploaderDropzone"] button:has(+ div[data-testid="stFileUploaderDropzoneInstructions"]) { display: none !important; }
+    div[data-testid="stFileUploaderDropzone"] > div:not(:last-child) { display: none !important; }
+    div[data-testid="stFileUploader"] section:has(div[data-testid="stFileUploaderDropzoneInstructions"])::before {
+        content: "";
+        display: block; width: 58px; height: 58px; margin: 0 auto 16px;
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2300d2ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>') center/contain no-repeat;
+        opacity: .9;
+    }
+    div[data-testid="stFileUploader"] section:has(div[data-testid="stFileUploaderDropzoneInstructions"])::after {
+        content: "Arrastra tu imagen aquí\\A o haz clic para elegir archivo";
+        display: block; text-align: center; white-space: pre-line;
+        color: #aebdd8; font-size: .95rem; line-height: 1.55;
+    }
+
+    /* ---------- Flujo mínimo ---------- */
+    .flow {
+        margin-top: 2.5rem; text-align: center;
+        color: #7c8bab; font-size: .92rem; line-height: 1.9;
+    }
+    .flow .n { color: #00d2ff; font-weight: 700; margin-right: .3rem; }
+    .flow .arrow { color: rgba(255,255,255,.25); margin: 0 .75rem; font-style: normal; }
+
+    /* ---------- Secciones ---------- */
+    .section-head {
+        display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+        gap: .5rem; margin: .5rem 0 1rem;
+    }
+    .section-title {
+        font-size: .78rem; font-weight: 700; letter-spacing: .16em;
+        text-transform: uppercase; color: #8fb4e8;
+    }
+    .section-meta { color: #7c8bab; font-size: .8rem; }
+
+    /* ---------- Imágenes y consulta ---------- */
+    [data-testid="stImage"] {
+        border: 1px solid rgba(255,255,255,.1); border-radius: 18px; overflow: hidden;
+        background: rgba(255,255,255,.03);
+        box-shadow: 0 18px 55px rgba(0,0,0,.35);
+    }
+    [data-testid="stImage"] img { border-radius: 18px; }
+    [data-testid="stImage"] figcaption, [data-testid="stCaptionContainer"] p { color: #7c8bab !important; }
+    .query-status {
+        display: inline-flex; align-items: center; gap: .45rem;
+        margin: .5rem 0 1.1rem; padding: .32rem .85rem; border-radius: 999px;
+        border: 1px solid rgba(52,211,153,.35); background: rgba(52,211,153,.08);
+        color: #8ef0c1; font-size: .82rem;
+    }
+    .query-status code { color: #c8f7dd; font-size: .8rem; }
+
+    /* ---------- Resultados ---------- */
     .result-card {
-        border: 1px solid rgba(255,255,255,.10); border-radius: 16px;
-        background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.02));
-        padding: .85rem 1rem .7rem; margin-bottom: .8rem;
-        box-shadow: 0 10px 30px rgba(0,0,0,.25);
+        border: 1px solid rgba(255,255,255,.09); border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.015));
+        backdrop-filter: blur(8px);
+        padding: .9rem 1rem .8rem; margin-bottom: .9rem;
+        box-shadow: 0 14px 40px rgba(0,0,0,.28);
+        animation: cardIn .5s ease both;
+        transition: border-color .2s ease, transform .2s ease;
     }
-    .result-top { display: flex; align-items: center; gap: .65rem; margin-bottom: .4rem; }
+    .result-card:hover { border-color: rgba(0,210,255,.35); transform: translateY(-1px); }
+    .result-layout { display: flex; gap: 1rem; align-items: flex-start; }
+    .result-top { display: flex; align-items: center; gap: .65rem; margin-bottom: .5rem; }
     .rank-badge {
-        min-width: 2.1rem; height: 2.1rem; border-radius: 50%;
+        min-width: 2.15rem; height: 2.15rem; border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
-        font-weight: 800; font-size: .95rem; color: #0b1220;
+        font-weight: 800; font-size: .95rem; color: #04121f;
         background: linear-gradient(135deg, #7fd4ff, #00a8ff);
-        box-shadow: 0 4px 12px rgba(0,168,255,.35);
+        box-shadow: 0 4px 14px rgba(0,168,255,.35);
     }
-    .rank-badge.rank1 { background: linear-gradient(135deg, #ffd76a, #ff9f1c); box-shadow: 0 4px 14px rgba(255,159,28,.45); }
-    .result-name { font-size: 1.08rem; font-weight: 700; color: #eaf2ff; line-height: 1.25; }
-    .result-id { color: #8fa3c2; font-size: .83rem; font-family: Consolas, "Cascadia Code", monospace; }
-    .score-wrap { margin: .45rem 0 .1rem; }
-    .score-label { display: flex; justify-content: space-between; font-size: .79rem; color: #9fb2d0; margin-bottom: .2rem; }
-    .bar { height: .5rem; border-radius: 999px; background: rgba(255,255,255,.08); overflow: hidden; }
+    .rank-badge.rank1 {
+        background: linear-gradient(135deg, #ffd76a, #ff9f1c);
+        box-shadow: 0 4px 16px rgba(255,159,28,.45);
+    }
+    .result-name { font-size: 1.04rem; font-weight: 700; color: #eaf2ff; line-height: 1.3; }
+    .result-id { color: #7c8bab; font-size: .8rem; font-family: Consolas, "Cascadia Code", monospace; }
+    .score-wrap { margin: .5rem 0 .15rem; }
+    .score-label { display: flex; justify-content: space-between; font-size: .78rem; color: #9fb2d0; margin-bottom: .25rem; }
+    .bar { height: .45rem; border-radius: 999px; background: rgba(255,255,255,.08); overflow: hidden; }
     .bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #00d2ff, #3a7bd5); }
-    .meta-line { color: #8fa3c2; font-size: .81rem; margin-top: .3rem; }
+    .meta-line { color: #7c8bab; font-size: .8rem; margin-top: .35rem; }
     a.api-link { color: #00d2ff; text-decoration: none; font-weight: 600; }
     a.api-link:hover { text-decoration: underline; }
-    .step-card {
-        border: 1px solid rgba(255,255,255,.10); border-radius: 14px; padding: 1rem 1.1rem;
-        background: rgba(255,255,255,.04); height: 100%;
-    }
-    .step-num {
-        width: 1.7rem; height: 1.7rem; border-radius: 50%; display: flex; align-items: center;
-        justify-content: center; font-weight: 700; font-size: .85rem; color: #0b1220;
-        background: linear-gradient(135deg, #7fd4ff, #00a8ff); margin-bottom: .55rem;
-    }
-    .step-title { font-weight: 700; color: #eaf2ff; margin-bottom: .3rem; }
-    .step-text { color: #93a4c0; font-size: .88rem; line-height: 1.45; }
-    div[data-testid="stFileUploader"] section {
-        border: 1.5px dashed rgba(0,210,255,.45) !important;
-        border-radius: 14px;
-    }
-    div[data-testid="stFileUploader"] section:hover { border-color: #00d2ff !important; }
-    .img-rounded { border-radius: 14px; border: 1px solid rgba(255,255,255,.12); }
     .result-img {
         width: 150px; height: 150px; object-fit: cover; flex-shrink: 0;
-        border-radius: 12px; border: 1px solid rgba(255,255,255,.12);
+        border-radius: 14px; border: 1px solid rgba(255,255,255,.12);
         background: rgba(255,255,255,.04);
+    }
+
+    /* ---------- Widgets ---------- */
+    div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {
+        background: rgba(255,255,255,.05) !important;
+        border-color: rgba(255,255,255,.12) !important;
+    }
+    div[data-testid="stBaseButton-primary"] button {
+        background: linear-gradient(90deg, #00a8ff, #00d2ff) !important;
+        color: #04121f !important; font-weight: 700;
+        box-shadow: 0 8px 24px rgba(0,170,255,.25);
+    }
+    div[data-testid="stBaseButton-primary"] button:hover {
+        box-shadow: 0 10px 32px rgba(0,190,255,.4);
+    }
+    div[data-testid="stBaseButton-secondary"] button {
+        background: rgba(255,255,255,.06) !important;
+        color: #dce8ff !important;
+        border-color: rgba(255,255,255,.14) !important;
+    }
+    div[data-testid="stExpander"] {
+        background: rgba(255,255,255,.03) !important;
+        border-color: rgba(255,255,255,.08) !important;
+        border-radius: 14px !important;
+    }
+    div[data-testid="stExpander"] summary { color: #cfe0f5 !important; }
+
+    /* ---------- Sidebar ---------- */
+    [data-testid="stSidebar"] {
+        background: rgba(7,10,18,.66);
+        border-right: 1px solid rgba(255,255,255,.06);
+        backdrop-filter: blur(14px);
+    }
+    [data-testid="stSidebar"] h3 {
+        font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: #8fb4e8;
+    }
+    [data-testid="stSidebar"] hr { border-color: rgba(255,255,255,.08); }
+    [data-testid="stSidebar"] [data-testid="stExpander"] {
+        background: rgba(255,255,255,.03) !important;
+        border-color: rgba(255,255,255,.08) !important;
+    }
+
+    @media (max-width: 640px) {
+        .block-container { padding-top: 1.7rem; }
+        div[data-testid="stFileUploader"] section { min-height: 195px; }
+        .result-card { padding: .8rem; }
+        .result-layout { flex-wrap: wrap; }
     }
 </style>
 """
@@ -148,48 +289,70 @@ CSS_CLARO = """
 <style>
     .stApp {
         background:
-            radial-gradient(1000px 500px at 10% -5%, rgba(0,150,255,.10), transparent 55%),
-            radial-gradient(800px 400px at 95% 0%, rgba(0,200,220,.08), transparent 50%),
-            linear-gradient(160deg, #f4f8fd 0%, #e9f0f9 60%, #e2ecf8 100%);
+            radial-gradient(1200px 620px at 14% -12%, rgba(56,132,255,.13), transparent 60%),
+            radial-gradient(1000px 540px at 90% -6%, rgba(0,200,220,.10), transparent 55%),
+            radial-gradient(1000px 640px at 50% 118%, rgba(122,84,255,.07), transparent 62%),
+            linear-gradient(172deg, #f5f9fd 0%, #ebf2fa 55%, #e7eef8 100%);
     }
     [data-testid="stAppViewContainer"], [data-testid="stSidebar"],
-    [data-testid="stMarkdownContainer"] { color: #1c2b3d; }
+    [data-testid="stMarkdownContainer"] { color: #18293f; }
     .hero-title {
-        background: linear-gradient(92deg, #0d2447 10%, #0068c8 55%, #0094b8 90%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        background-clip: text;
+        background: linear-gradient(94deg, #0b1f3a 0%, #1a4a8f 45%, #0077cc 78%, #0094b8 100%);
+        -webkit-background-clip: text; background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
-    .hero-sub { color: #44566f; }
-    .chip { color: #33455e; border-color: rgba(20,40,70,.18); background: rgba(20,40,70,.05); }
-    .chip-ok { color: #0b7a3d; border-color: rgba(34,153,84,.45); background: rgba(34,153,84,.10); }
-    .chip-err { color: #b3261e; border-color: rgba(214,60,60,.45); background: rgba(214,60,60,.10); }
+    .hero-sub { color: #4a5d78; }
+    .hero-meta { color: #5b6b84; }
+    .hero-meta-err { color: #b3261e; }
+    .eyebrow-text { color: #3b6ea8; }
+    .upload-title { color: #0f2440; }
+    .upload-hint { color: #5b6b84; }
+    div[data-testid="stFileUploader"] section {
+        border-color: rgba(0,104,200,.4) !important;
+        background: linear-gradient(180deg, #ffffff, #f2f8ff) !important;
+    }
+    div[data-testid="stFileUploader"] section:hover {
+        border-color: rgba(0,130,220,.85) !important;
+        box-shadow: 0 0 0 1px rgba(0,130,220,.12), 0 26px 70px rgba(0,120,220,.14);
+        background: linear-gradient(180deg, #ffffff, #eaf4ff) !important;
+    }
+    div[data-testid="stFileUploader"] section:has(div[data-testid="stFileUploaderDropzoneInstructions"])::before {
+        background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%230077cc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>') center/contain no-repeat;
+    }
+    div[data-testid="stFileUploader"] section:has(div[data-testid="stFileUploaderDropzoneInstructions"])::after {
+        color: #44566f;
+    }
+    .flow { color: #5b6b84; }
+    .flow .n { color: #0077cc; }
+    .flow .arrow { color: rgba(20,40,70,.3); }
+    .section-title { color: #2c5f9e; }
+    .section-meta { color: #5b6b84; }
+    [data-testid="stImage"] {
+        border-color: rgba(20,40,70,.1); background: #ffffff;
+        box-shadow: 0 14px 40px rgba(30,60,100,.12);
+    }
+    [data-testid="stImage"] figcaption, [data-testid="stCaptionContainer"] p { color: #5b6b84 !important; }
+    .query-status {
+        border-color: rgba(34,153,84,.4); background: rgba(34,153,84,.09); color: #0b7a3d;
+    }
+    .query-status code { color: #0b7a3d; }
     .result-card {
-        border: 1px solid rgba(20,40,70,.12);
+        border-color: rgba(20,40,70,.1);
         background: linear-gradient(180deg, #ffffff, #f6faff);
-        box-shadow: 0 8px 24px rgba(30,60,100,.10);
+        box-shadow: 0 12px 34px rgba(30,60,100,.10);
     }
+    .result-card:hover { border-color: rgba(0,120,220,.35); }
     .result-name { color: #0f2440; }
     .result-id { color: #5b6b84; }
     .score-label { color: #5b6b84; }
-    .bar { background: rgba(20,40,70,.10); }
+    .bar { background: rgba(20,40,70,.1); }
     .meta-line { color: #5b6b84; }
     a.api-link { color: #0068c8; }
-    .step-card { border: 1px solid rgba(20,40,70,.12); background: #ffffff; }
-    .step-title { color: #0f2440; }
-    .step-text { color: #44566f; }
-    [data-testid="stSidebar"] { background: linear-gradient(180deg, #ffffff, #f0f5fb); }
-    [data-testid="stSidebar"] hr { border-color: rgba(20,40,70,.15); }
-    div[data-testid="stFileUploader"] section {
-        border-color: rgba(0,104,200,.55) !important;
-        background: rgba(255,255,255,.75);
-    }
-    div[data-testid="stFileUploader"] section span,
-    div[data-testid="stFileUploader"] section button { color: #0f2440; }
+    .result-img { border-color: rgba(20,40,70,.14); background: #ffffff; }
     div[data-baseweb="select"] > div, div[data-baseweb="input"] > div {
         background: #ffffff !important;
+        border-color: rgba(20,40,70,.15) !important;
     }
-    div[data-baseweb="select"] span, div[data-baseweb="input"] input,
-    div[data-baseweb="select"] input { color: #0f2440 !important; }
     div[data-testid="stBaseButton-primary"] button {
         background: linear-gradient(90deg, #0077cc, #0094b8) !important;
         color: #ffffff !important;
@@ -200,14 +363,23 @@ CSS_CLARO = """
         border-color: rgba(20,40,70,.18) !important;
     }
     div[data-testid="stExpander"] {
-        border-color: rgba(20,40,70,.15) !important;
-        background: rgba(255,255,255,.6) !important;
+        background: rgba(255,255,255,.55) !important;
+        border-color: rgba(20,40,70,.12) !important;
     }
     div[data-testid="stExpander"] summary { color: #0f2440 !important; }
-    [data-testid="stCaptionContainer"] p { color: #5b6b84 !important; }
-    .result-img { border-color: rgba(20,40,70,.14); background: #ffffff; }
+    [data-testid="stSidebar"] {
+        background: rgba(255,255,255,.72);
+        border-right: 1px solid rgba(20,40,70,.08);
+    }
+    [data-testid="stSidebar"] h3 { color: #2c5f9e; }
+    [data-testid="stSidebar"] hr { border-color: rgba(20,40,70,.1); }
+    [data-testid="stSidebar"] [data-testid="stExpander"] {
+        background: rgba(255,255,255,.6) !important;
+        border-color: rgba(20,40,70,.12) !important;
+    }
 </style>
 """
+
 st.markdown(CSS, unsafe_allow_html=True)
 if st.session_state["tema_claro"]:
     st.markdown(CSS_CLARO, unsafe_allow_html=True)
@@ -275,6 +447,7 @@ def html_imprimir(b64, nombre_archivo, tema_claro):
     }}
 </script>
 """
+
 
 
 def verificar_health(api_url):
@@ -438,31 +611,48 @@ with st.sidebar:
 
 info_health = st.session_state.get("health_info")
 err_health = st.session_state.get("health_err")
-chips = []
+
+
+def fmt_num(v):
+    try:
+        return f"{int(v):,}"
+    except (TypeError, ValueError):
+        return esc(v) if v is not None else "?"
+
+
+meta_parts = []
 if info_health:
-    chips.append(
-        f'<span class="chip chip-ok">● API activa · '
-        f'{esc(info_health.get("products", "?"))} productos</span>'
-    )
-    chips.append(f'<span class="chip">{ICO["shirt"]} {esc(info_health.get("embeddings", "?"))} embeddings</span>')
+    meta_parts.append(f'{fmt_num(info_health.get("products"))} productos')
+    meta_parts.append(f'{fmt_num(info_health.get("embeddings"))} embeddings')
+    estado = '<span class="dot dot-ok"></span>API activa'
 else:
-    chips.append('<span class="chip chip-err">● API sin conexión</span>')
-    if err_health:
-        chips.append(f'<span class="chip chip-err">● {esc(err_health[:60])}</span>')
+    estado = '<span class="dot dot-err"></span>API sin conexión'
+meta_html = '<div class="hero-meta">' + " · ".join(meta_parts) + ((" · " + estado) if meta_parts else estado) + "</div>"
+if err_health:
+    meta_html += f'<div class="hero-meta-err">No se pudo verificar la API: {esc(err_health[:70])}</div>'
 
 st.markdown(
     '<div class="hero">'
-    '<h1 class="hero-title">Búsqueda visual de camisetas</h1>'
-    '<div class="hero-sub">Subí una imagen y obtené las 5 camisetas más parecidas '
-    'de la biblioteca.</div>'
-    + "".join(chips) +
+    '<div class="eyebrow"><span class="eyebrow-dot"></span>'
+    '<span class="eyebrow-text">Búsqueda visual</span></div>'
+    '<h1 class="hero-title">Encuentra camisetas visualmente similares</h1>'
+    '<div class="hero-sub">Sube una imagen de una camiseta y el sistema la analiza '
+    'para encontrar las más parecidas de la biblioteca.</div>'
+    + meta_html +
     "</div>",
     unsafe_allow_html=True,
 )
 
+st.markdown(
+    '<div class="upload-title">Sube una imagen de camiseta</div>'
+    '<div class="upload-hint">JPG, JPEG o PNG · Máximo 200 MB por archivo</div>',
+    unsafe_allow_html=True,
+)
+
 archivo = st.file_uploader(
-    "Subí una imagen de consulta (JPG, JPEG o PNG)",
+    "Sube una imagen de camiseta",
     type=["jpg", "jpeg", "png"],
+    label_visibility="collapsed",
 )
 
 datos_imagen = None
@@ -493,32 +683,24 @@ else:
         tipo_imagen = "image/png" if ext == ".png" else "image/jpeg"
 
 if datos_imagen is None:
-    c1, c2, c3 = st.columns(3)
-    pasos = [
-        ("1", "Subí tu imagen",
-         "Puede ser la camiseta original, sin marco, recortada, con colores "
-         "modificados o incluso una foto de persona usándola."),
-        ("2", "La API la prepara y busca",
-         "Sala 2 limpia la consulta y el motor recupera 30–100 candidatos, "
-         "que luego reordena visualmente."),
-        ("3", "Compará el Top 5",
-         "Cada resultado muestra imagen, nombre, proveedor, URL y su score "
-         "de similitud. Podés registrar la evaluación humana."),
-    ]
-    for col, (num, titulo, texto) in zip((c1, c2, c3), pasos):
-        with col:
-            st.markdown(
-                f'<div class="step-card"><div class="step-num">{num}</div>'
-                f'<div class="step-title">{titulo}</div>'
-                f'<div class="step-text">{texto}</div></div>',
-                unsafe_allow_html=True,
-            )
+    st.markdown(
+        '<div class="flow">'
+        '<span class="n">01</span> Sube tu imagen <span class="arrow">→</span>'
+        '<span class="n">02</span> La analizamos <span class="arrow">→</span>'
+        '<span class="n">03</span> Encuentra similares'
+        "</div>",
+        unsafe_allow_html=True,
+    )
     st.stop()
 
-st.caption(f"Imagen: `{nombre_imagen}`")
+st.markdown(
+    f'<div class="query-status"><span class="dot dot-ok"></span>Imagen lista: '
+    f'<code>{esc(nombre_imagen)}</code></div>',
+    unsafe_allow_html=True,
+)
 clave_busqueda = hashlib.md5(datos_imagen + modelo.encode() + api_url.encode()).hexdigest()
 if st.session_state.get("busqueda_clave") != clave_busqueda:
-    with st.spinner("Buscando..."):
+    with st.spinner("Procesando imagen y buscando similares..."):
         data, err = buscar(datos_imagen, nombre_imagen, tipo_imagen, api_url, modelo)
     st.session_state["busqueda_clave"] = clave_busqueda
     st.session_state["busqueda_data"] = data
@@ -543,11 +725,14 @@ if not resultados:
 col_q, col_r = st.columns([1, 2.1], gap="large")
 
 with col_q:
-    st.markdown(f"#### {ICO['search']} Consulta")
+    st.markdown(
+        f'<div class="section-title">{ICO["search"]} Consulta</div>',
+        unsafe_allow_html=True,
+    )
     st.image(
         Image.open(io.BytesIO(datos_imagen)),
         use_container_width=True,
-        caption="Imagen enviada",
+        caption="Imagen de consulta",
     )
 
     b64_proc = data.get("imagen_procesada_b64")
@@ -556,7 +741,7 @@ with col_q:
             st.image(
                 Image.open(io.BytesIO(base64.b64decode(b64_proc))),
                 use_container_width=True,
-                caption="Preparada por la API (Sala 2)",
+                caption="Preparada por la API",
             )
         except Exception:
             pass
@@ -579,11 +764,13 @@ with col_q:
                     st.markdown(f"- {esc(paso)}")
 
 with col_r:
-    st.markdown(f"#### {ICO['trophy']} Resultados")
-    st.caption(
-        f"Modo: `{esc(data.get('modo'))}` · "
-        f"Modelo: `{esc(data.get('modelo'))}` · "
-        f"Tiempo de respuesta: `{data.get('tiempo_segundos')} s`"
+    st.markdown(
+        '<div class="section-head">'
+        f'<div class="section-title">{ICO["trophy"]} Resultados</div>'
+        f'<div class="section-meta">Top 5 · Modo {esc(data.get("modo"))} · '
+        f'Modelo {esc(data.get("modelo"))} · {data.get("tiempo_segundos")} s</div>'
+        "</div>",
+        unsafe_allow_html=True,
     )
 
     consulta_id = esc(data.get("query_id")) or nombre_imagen
@@ -617,8 +804,8 @@ with col_r:
             )
 
         st.markdown(
-            '<div class="result-card">'
-            '<div style="display:flex; gap:1rem; align-items:flex-start;">'
+            f'<div class="result-card" style="animation-delay:{rank * 70}ms">'
+            '<div class="result-layout">'
             f"{img_html}"
             '<div style="flex:1; min-width:0;">'
             '<div class="result-top">'

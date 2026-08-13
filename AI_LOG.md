@@ -535,3 +535,127 @@ de imprimir. Agregado el prefijo data:image/jpeg;base64, en el src.
 data URI con prefijo + @media print + window.print, sin window.open ni
 document.write, en ambos temas; AppTest flujo completo sin excepciones
 (5 iframes, 5 download_buttons).
+
+## Fecha: 2026-08-13 (rediseño visual completo - estética Google Stitch)
+
+### Prompt - Rediseño UI/UX: interfaz moderna de producto de IA (dark ambient)
+**Objetivo:** Solo UI/UX; sin tocar arquitectura, API, lógica ni contratos.
+Referencia conceptual Google Stitch: dark ambient, minimalismo, gradientes
+luminosos sutiles, glassmorphism ligero, espacio negativo, jerarquía fuerte.
+**Cambios en frontend/app.py (lógica intacta):**
+- Fondo oscuro #05070d con 3 gradientes radiales ambientales (cyan→azul→violeta).
+- Hero rejerarquizado: eyebrow "Búsqueda visual" con punto pulsante → título
+  grande gradiente "Encuentra camisetas visualmente similares" → subtítulo →
+  meta discreta "15,272 productos · 15,272 embeddings · API activa" (sin cards).
+- Dropzone protagonista: 250px, borde discontinuo, vidrio (backdrop-filter),
+  hover con glow; los textos internos en inglés del widget ("Upload",
+  "200MB per file...", "Drag and drop...") se ocultan por CSS (testids
+  verificados en bundle FileUploader.Bg9tjvVJ.js) y se superpone overlay en
+  español (SVG data-URI + "Arrastra tu imagen aquí / o haz clic para elegir
+  archivo") solo en estado vacío vía :has(). Con archivo cargado el overlay
+  desaparece y la lista de archivos sigue visible y funcional.
+- Pasos en una línea minimalista: "01 Sube tu imagen → 02 La analizamos →
+  03 Encuentra similares" (reemplaza las 3 cards).
+- Resultados: aparición escalonada (fadeUp con delay 70ms por rank), tarjetas
+  glass con hover sutil, score bar delgada, sección "Resultados" con meta
+  inline (Top 5 · Modo · Modelo · tiempo).
+- Sidebar translúcido con blur; widgets select/input oscuros; botón primario
+  gradiente cyan con glow; #MainMenu/footer ocultos; header transparente.
+- Responsive: clamp() en título, min-height 195px en dropzone móvil,
+  result-layout con flex-wrap en <=640px.
+- Tema claro: misma estructura con ambient suave, tarjetas blancas y overlay
+  de dropzone en azul.
+**Verificado:** py_compile OK; AppTest en oscuro y claro: estado inicial y con
+imagen real (c01_cuerpo.jpeg) sin excepciones; 1 file_uploader, 5
+download_buttons, 7 expanders, hero/flow/meta/query-status/Resultados
+presentes.
+
+## Fecha: 2026-08-13 (luz ambiental interactiva que sigue al cursor)
+
+### Prompt - Efecto ambiental interactivo (estilo Google Stitch), SOLO visual
+**Objetivo:** halo de luz difuminado (cyan→azul→violeta, muy sutil) que sigue
+el cursor con interpolación suave; decorativo, sin tocar lógica/API/upload.
+**Implementación (frontend/app.py):**
+- html_luz_ambiental(): iframe invisible (components.html, height=1) cuyo
+  script, aprovechando allow-same-origin (sandbox verificado en bundle
+  IFrameUtil), manipula el DOM del padre: crea 3 divs .luz de 1900px
+  (radial-gradient closest-side, opacidades .16/.12/.09, offsets
+  -140/-80 y +120/+50 para un halo asimétrico) colgados de .stApp.
+- CSS: .stApp { isolation: isolate; } + .luz { position: fixed;
+  z-index: -1; pointer-events: none; will-change: transform; opacity 0 →
+  .luz-on 1 (transición .8s) } → la luz queda BAJO la UI y se percibe a
+  través de las superficies translúcidas. iframe oculto con
+  iframe.stIFrame[height="1px"].
+- JS: lerp 0.10 por frame con requestAnimationFrame, solo transform
+  translate3d (compositor, sin repaints); encendido en el primer mousemove
+  (sin parpadeo inicial), apagado suave al salir de la ventana
+  (mouseleave/mouseenter en documentElement); guard anti-duplicados
+  (querySelector('.luz')) porque el iframe se re-ejecuta en cada rerun.
+- Accesibilidad/perf: desactivada con prefers-reduced-motion y
+  pointer: coarse (táctiles); listener mousemove pasivo en el documento.
+- Tema claro: mismas capas con alphas reducidas (.11/.08/.06).
+- Fix: definición de la función movida antes de su llamada (NameError);
+  label del file_uploader no vacío con label_visibility collapsed
+  (warning de accesibilidad de Streamlit 1.60).
+**Verificado:** py_compile OK; AppTest oscuro/claro: sin excepciones
+(inicial y con imagen real); 6 iframes (1 luz + 5 imprimir), 5
+download_buttons; JS verificado por AST (rAF, translate3d, reduced-motion,
+coarse, guard, 3 capas).
+
+## Fecha: 2026-08-13 (fix: luz ambiental de página completa, no solo en el dropzone)
+
+### Prompt - Fix: el difuminado solo se ve dentro del box de subir imagen
+**Causa:** las capas .luz con position:fixed colgadas de .stApp quedaban
+ancladas al contenedor (o eran casi invisibles sobre el fondo oscuro plano
+fuera de las superficies translúcidas), por lo que el efecto solo se
+percibía dentro del dropzone.
+**Solución:**
+- Capas en position: absolute con .stApp { position: relative }
+  (anclaje determinista al documento, inmune a transforms del contenedor) y
+  compensación de scroll en el transform: translate3d(scrollX + x + dx,
+  scrollY + y + dy) → la luz sigue al cursor en viewport aunque se scrollee.
+- Tamaño subido a 2200px y alphas aumentadas (.20/.14/.10 oscuro,
+  .14/.10/.07 claro): perceptible sobre toda la página, no solo tras el
+  vidrio. Sigue siendo un ambiente sutil (z-index -1, pointer-events none).
+**Verificado:** py_compile OK; JS por AST (scrollX/scrollY en transform);
+AppTest oscuro/claro sin excepciones (6 iframes, 5 download_buttons).
+
+## Fecha: 2026-08-13 (fix: UI en blanco al cargar + luz ambiental robusta)
+
+### Prompt - Fix: rompiste la UI, no se ve nada al cargar la web
+**Causa probable:** las capas .luz ancladas dentro de .stApp con
+z-index: -1 + isolation: isolate + position: relative en .stApp
+podían romper el apilado/render del contenedor raíz de Streamlit en el
+navegador (contenedores de positioning no estándar en .stApp).
+**Solución (patrón a prueba de balas):**
+- Los gradientes ambientales del fondo pasaron de .stApp a ody
+  (el lienzo raíz); .stApp y [data-testid="stAppViewContainer"]
+  quedan ackground: transparent.
+- Las 3 capas de luz se cuelgan de document.body con
+  position: fixed; z-index: -1 (body nunca tiene transform → el
+  containing block es siempre el viewport) y transform solo
+  clientX/clientY (sin compensación de scroll).
+- Eliminados isolation: isolate, position: relative de .stApp y el
+  listener de scroll sobrante: .stApp vuelve a su estado original.
+- Pintado: sobre el fondo de body y bajo todo el contenido (la luz se ve
+  a través de superficies translúcidas) en toda la página.
+**Verificado:** py_compile OK; llaves CSS balanceadas (82/82); AppTest
+oscuro/claro sin excepciones (6 iframes, 5 download_buttons). Sugerido al
+usuario: recarga con Ctrl+F5 (posible caché del bundle anterior).
+
+## Fecha: 2026-08-13 (revert: eliminado efecto de luz ambiental)
+
+### Prompt - vuelve a cambios atrás porque está roto, la cagaste, arregla
+**Decisión:** revertir por completo el efecto de luz ambiental (fue la
+única adición desde el rediseño aprobado por el usuario) y devolver la
+app al estado que el usuario confirmó como bueno.
+**Cambios aplicados (frontend/app.py):**
+- Eliminado html_luz_ambiental() y su llamada
+  components.html(..., height=1, scrolling=False) (línea 454).
+- Eliminado CSS .luz, .luz-on, .luz-1/2/3 y
+  iframe.stIFrame[height="1px"] del tema oscuro y claro.
+- Fondo ambiental restaurado en .stApp (gradientes originales), sin
+  ody + transparentes + stAppViewContainer.
+**Verificado:** py_compile OK; AppTest oscuro/claro sin excepciones y
+con 5 download_buttons tras subir data/consultas/c01_cuerpo.jpeg.
+El usuario debe recargar con Ctrl+F5 (caché de bundle anterior).
