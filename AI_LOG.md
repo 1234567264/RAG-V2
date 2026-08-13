@@ -368,3 +368,37 @@ marco ni texto externo), en lugar de data/images_final/.
 - scripts/revisar_muestra_50.py: acepta --n (100 en Hito 3), nombres dinámicos y aviso de uso.
 - Resultado real: revision_humana_100.csv -> 99/100 correctas (99%), 1 dudosa (AIM-P202-007: 4 bandas, frente/espalda fusionados), 0 incorrectas; informe_revision_humana_100.txt; revision_contact_sheet_100.png.
 - REPORTES_HIT3.md actualizado con los resultados reales de la revisión de 100.
+
+## Fecha: 2026-08-13 (Sala 4 + Sala 3, Hito 3 — embeddings a escala 15.272)
+
+### Prompt - Re-indexar el sistema a escala 15.272 sobre images_normalized
+**Propósito:** Generar los índices del Hito 3 con el banco completo (15.272) a
+partir de data/images_normalized/ (única carpeta del catálogo), que eran los
+bloqueos de Sala 4 y Sala 3 (no existía ningún .npy a escala).
+**Resultado:**
+- `scripts/generar_embeddings.py` (Hito 1, CLIP openai) re-ejecutado sobre las
+  15.272 normalizadas → `data/embeddings.npy` (15272×512) + `data/ids.npy`
+  (15272, alineado posición a posición con products.csv).
+- `scripts/generar_indices_comparativos.py` (Sala 4) re-ejecutado a escala →
+  `data/embeddings_clip.npy` (15272×512, listo) y `embeddings_openclip.npy` +
+  `embeddings_siglip.npy` en generación (CPU, sin GPU; run secuencial).
+- Verificado motor Hito 1 a escala: carga 0,62 s, búsqueda 61 ms, Top 1 exacto.
+- Verificado motor Hito 2 (`search_similar_reranked`) contra el índice clip de
+  15.272: recuperación Top 30 en 0,15 s, Top 1 correcto, respuesta con
+  score_recuperacion/score_reranking/posicion_inicial/posicion_final/modelo.
+
+### Prompt - Contrato de respuesta del Hito 3 y descriptores a escala
+**Propósito:** Alinear la respuesta de la API con HITO3.md (Sala 3, punto 7) y
+escalar los descriptores del reranking.
+**Resultado:**
+- `api/search_engine_hito2.py`: cada resultado ahora incluye `score_recuperacion`
+  (alias de score_inicial), `posicion_inicial` (posición en la recuperación
+  amplia) y `modelo` (además de `modelo_utilizado`), cumpliendo el contrato
+  `id, score_recuperacion, score_reranking, posicion_inicial, posicion_final,
+  modelo, nombre, imagen, url`.
+- `frontend/app.py`: muestra recuperación vs reranking y `posicion_inicial →
+  posicion_final`.
+- `scripts/precomputar_descriptores.py` re-ejecutado a 15.272 →
+  `data/descriptores.json` (fuente images_normalized) para que el reranking no
+  compute descriptores on-the-fly con el catálogo grande.
+- NOTA: no se hizo commit ni push.

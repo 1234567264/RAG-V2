@@ -113,6 +113,14 @@ with col_r:
             if score is None:
                 score = r["score"]
             st.markdown(f"**Similitud:** `{score:.4f}`")
+            if r.get("score_recuperacion") is not None:
+                ini = r.get("posicion_inicial")
+                fin = r.get("posicion_final")
+                pos = f"`#{ini} → #{fin}`" if ini is not None and fin is not None else ""
+                st.caption(
+                    f"Recuperación: `{r['score_recuperacion']:.4f}` · "
+                    f"Reranking: `{score:.4f}` · Posición {pos}"
+                )
             if r.get("url"):
                 st.markdown(f"[Abrir imagen original]({r['url']})")
         st.divider()

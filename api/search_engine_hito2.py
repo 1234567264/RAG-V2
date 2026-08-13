@@ -555,7 +555,7 @@ def _rerank_candidatos(candidatos, query_image, etiqueta_modelo, top_k: int = 5)
 
     # ── Paso 2: RERANKING VISUAL ─────────────────────────────────────────
     reranked = []
-    for cand in candidatos:
+    for pos_inicial, cand in enumerate(candidatos, start=1):
         # Score de embeddings crudo y normalizado a [0,1]
         score_embedding = float(cand["score"])
         score_embedding_norm = _emb_norm(score_embedding)
@@ -620,6 +620,8 @@ def _rerank_candidatos(candidatos, query_image, etiqueta_modelo, top_k: int = 5)
         reranked.append({
             **cand,
             "score_inicial": round(score_embedding, 4),
+            "score_recuperacion": round(score_embedding, 4),
+            "posicion_inicial": pos_inicial,
             "score_embedding": round(score_embedding_norm, 4),
             "score_color_global": round(score_color_global, 4),
             "score_color_frente": round(score_frente, 4),
@@ -652,6 +654,7 @@ def _rerank_candidatos(candidatos, query_image, etiqueta_modelo, top_k: int = 5)
     final = []
     for posicion, r in enumerate(reranked[:top_k], start=1):
         r["posicion_final"] = posicion
+        r["modelo"] = etiqueta_modelo
         r["modelo_utilizado"] = f"{etiqueta_modelo}+color+estructura+patron+marco+franjas"
         final.append(r)
 
