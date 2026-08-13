@@ -36,3 +36,6 @@ htmlcov/
 # Sistema operativo
 .DS_Store
 Thumbs.db
+
+# Preferencias locales de la interfaz
+frontend/.theme_pref.json

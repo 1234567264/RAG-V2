@@ -402,3 +402,136 @@ escalar los descriptores del reranking.
   `data/descriptores.json` (fuente images_normalized) para que el reranking no
   compute descriptores on-the-fly con el catálogo grande.
 - NOTA: no se hizo commit ni push.
+
+## Fecha: 2026-08-13 (rediseño de interfaz frontend)
+
+### Prompt - Mejora de la UI de frontend/app.py sin romper el funcionamiento
+**Propósito:** Rediseñar la interfaz de Sala 2 (cliente puro de la API) con un
+look moderno y más información, manteniendo intacto el contrato con la API.
+**Resultado:** rontend/app.py rediseñado:
+- Tema oscuro deportivo vía CSS (gradientes, tarjetas redondeadas, chips de
+  estado, barra de score por resultado).
+- Sidebar nueva: URL de la API configurable, verificación de /health,
+  selector de modelo (fusion/openclip/clip) e instrucciones.
+- Header con estado de la API (productos/embeddings) y chips.
+- Panel de consulta: imagen original + imagen preparada por Sala 2
+  (imagen_procesada_b64) + detalles del preprocesamiento en expander.
+- Resultados en tarjetas: badge de ranking (#1 destacado), nombre, ID,
+  proveedor, score de similitud con barra, recuperación vs reranking,
+  posición inicial → final, modelo utilizado y enlace a la imagen original.
+- Registro de evaluación humana (Muy similar / Similar / Poco similar /
+  No relacionado + observación) guardado en data/evaluation.csv con las
+  columnas del contrato (consulta, resultado_id, posicion, score,
+  clasificacion_humana, observacion).
+- Selector de imágenes de prueba desde data/consultas/ para demos.
+- Sin embeddings ni búsqueda local: solo consume POST /search/image.
+**Verificado:** py_compile OK, arranque headless de Streamlit OK (HTTP 200)
+y prueba real contra la API con consulta de data/consultas/ (modo completo,
+modelo fusion, 5 resultados con todos los campos del contrato).
+
+## Fecha: 2026-08-13 (tema claro/oscuro en español, caché de preferencia)
+
+### Prompt - Tema en español, tema claro mejorado y preferencia en caché
+**Propósito:** Que la interfaz esté íntegramente en español, arreglar el tema
+claro (se veía mal) y recordar la elección de tema entre sesiones.
+**Resultado:**
+- .streamlit/config.toml nuevo: [theme] base = "dark" para que los widgets
+  nativos (selectbox, botones, expander) combinen con el diseño oscuro.
+- rontend/app.py: toggle "🌓 Tema claro" en el sidebar (español) que aplica
+  un tema claro rediseñado (gradientes suaves, tarjetas blancas, textos y
+  chips legibles, botones/inputs/expander re-skin via CSS) y guarda la
+  preferencia en rontend/.theme_pref.json (caché entre sesiones) +
+  st.session_state (caché entre reruns).
+- Menú nativo: se ocultan los items en inglés "Get help"/"Report a bug" y
+  "About" muestra texto en español (el menú Settings de Streamlit en sí no es
+  traducible; el control de tema propio queda en español).
+- rontend/.theme_pref.json agregado a .gitignore.
+**Verificado:** py_compile OK, arranque headless con tema claro OK (HTTP 200),
+ciclo guardar/leer de la preferencia OK.
+
+### Prompt - Fix KeyError tema_claro
+**Propósito:** Corregir KeyError: st.session_state has no key "tema_claro" en
+arranque: la inyección CSS condicional (linea 178) se ejecutaba antes de la
+inicializacion de la clave en session_state.
+**Resultado:** cargar_tema()/guardar_tema() y la inicializacion
+if "tema_claro" not in st.session_state movidas al inicio del script (antes
+de la inyeccion CSS). Verificado con streamlit.testing.v1.AppTest:
+arranque sin pref, con pref claro, y toggle off (persiste en
+rontend/.theme_pref.json).
+
+## Fecha: 2026-08-13 (acciones imprimir/descargar, sin emojis, tema claro)
+
+### Prompt - Imprimir/descargar en resultados, soporte tema claro, sin emojis
+**Propósito:** (1) Botones Imprimir y Descargar imagen en cada resultado; (2)
+que esos controles soporten el tema claro; (3) eliminar TODOS los emojis de la
+interfaz usando iconos SVG en línea (sin descargar librerías, solo código
+inline); (4) sin opción de grabar video.
+**Resultado:**
+- html_acciones(): iframe via streamlit.components.v1.html con botones
+  "Descargar" (data-URI + download) e "Imprimir" (ventana nueva + print) por
+  resultado, coloreados según tema claro/oscuro.
+- Iconos SVG estilo Feather inline (_svg() + dict ICONOS): gear, zap, cpu,
+  info, sun, target, search, trophy, wrench, link, edit, shirt. Sin emojis en
+  toda la app y sin CDN (nada se descarga, todo inline).
+- page_icon emoji eliminado; clase .result-img con borde adaptado a cada
+  tema; labels de widgets en texto plano.
+- No se agregó ninguna opción de grabación de video.
+**Verificado:** py_compile OK; AppTest en tema oscuro y claro sin excepciones;
+flujo completo con imagen real (c01_cuerpo.jpeg) contra la API: 5 tarjetas +
+5 iframes de acciones + 5 expanders de evaluación renderizados sin errores.
+
+## Fecha: 2026-08-13 (fix iconos SVG invisibles + descarga corrupta)
+
+### Prompt - Fix: iconos no visibles y descarga de imagen corrupta
+**Propósito:** (1) Los SVG inline no se renderizaban porque el sanitizador de
+Streamlit no permite etiquetas svg (labels de expander usan allowHTML=false
+y st.markdown pasa por rehype-raw/DOMPurify); (2) la descarga por data-URI
+JS descargaba archivo corrupto (data URI gigante en el srcdoc del iframe).
+**Resultado:**
+- Iconos migrados a **Bootstrap Icons por CDN** (solo URL, sin descargar):
+  <link> en st.markdown + <i class="bi bi-xxx ic"></i>. Los labels de
+  expander (que escapan HTML) quedan sin icono, en texto plano.
+- Descarga reemplazada por st.download_button nativo: envía los BYTES reales
+  del archivo local por websocket (archivo JPEG siempre válido). El iframe
+  queda solo con el botón Imprimir.
+- Tema claro: botón secundario (Descargar) también re-estilizado en claro.
+**Verificado:** py_compile OK; AppTest con imagen real contra la API en tema
+oscuro y claro: 5 resultados, 5 download_buttons (label/filename/mime/bytes)
+sin excepciones; sin emojis restantes.
+
+## Fecha: 2026-08-13 (fix: descarga re-dispara búsqueda + iconos emoji)
+
+### Prompt - Fix: al descargar se repite la búsqueda; los SVG no se ven
+**Propósito:** (1) El botón Descargar (widget) provoca un rerun de Streamlit
+que re-ejecutaba la búsqueda contra la API (lento y duplicaba consultas);
+(2) los iconos por CDN (Bootstrap Icons) tampoco se veían en el navegador;
+el usuario autorizó emojis si SVG no funciona.
+**Resultado:**
+- **Caché de búsqueda:** hash md5(bytes imagen + modelo + api_url) guardado en
+  st.session_state["busqueda_clave"]; la API solo se consulta si cambia la
+  clave. Los reruns de widgets (descargar, evaluar) ya no re-buscan.
+- **Iconos en emojis** (texto plano, se ven en todos los contextos): sidebar,
+  encabezados, chips, labels de expander y botón Imprimir del iframe
+  (🖨️/⬇️/⚙️/🧠/ℹ️/🎯/🔍/🏆/🛠️/🔗/✏️/👕). Eliminado el CDN y la clase .ic.
+**Verificado:** py_compile OK; AppTest con contador de requests.post: 1 solo
+POST tras subir la imagen y 0 nuevos en reruns posteriores; 5 download_buttons;
+sin excepciones en tema oscuro y claro; emojis presentes en labels y expanders.
+
+## Fecha: 2026-08-13 (fix: Imprimir no mostraba la imagen)
+
+### Prompt - Fix: la opción Imprimir no muestra la imagen a imprimir
+**Causa raíz:** (1) html_imprimir usaba el base64 crudo como src de la
+imagen sin el prefijo data:image/jpeg;base64, (lo inyectaba tal cual
+devuelve imagen_a_b64) -> imagen rota en el popup; (2) el flujo dependía de
+window.open + document.write con el base64 gigante (popups bloqueables y
+límite de 1 MB de Chrome en document.write).
+**Solución:** sin popup ni document.write. La imagen vive oculta
+(display:none) dentro del propio iframe y solo se muestra con
+@media print; window.print() imprime el documento del iframe (el sandbox
+de components.html incluye llow-modals, verificado en el bundle:
+IFrameUtil.PlC_b34Z.js). img.onload garantiza que la imagen ya cargó antes
+de imprimir. Agregado el prefijo data:image/jpeg;base64, en el src.
+**Verificado:** py_compile OK; AST-test de html_imprimir: print-area +
+data URI con prefijo + @media print + window.print, sin window.open ni
+document.write, en ambos temas; AppTest flujo completo sin excepciones
+(5 iframes, 5 download_buttons).
