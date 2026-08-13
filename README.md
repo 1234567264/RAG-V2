@@ -1,4 +1,4 @@
-# WebScraping — RAG Visual (Hito 2)
+# WebScraping — RAG Visual 
 
 Plataforma de búsqueda visual de camisetas deportivas basada en **embeddings CLIP/OpenCLIP/SigLIP**. El proyecto scrapea catálogos de *Designs Aimari*, consolida y normaliza un dataset, convierte cada imagen en un vector, y expone una API que devuelve el **Top 5 de diseños visualmente más parecidos** a una imagen cargada. Todo se presenta en una interfaz Streamlit.
 
