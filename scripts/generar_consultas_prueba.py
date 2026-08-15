@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-generar_consultas_prueba.py
----------------------------
+generar_consultas_prueba.py  [LEGACY]
+-------------------------------------
 SALA 3 - Hito 2: infraestructura de la PRUEBA INTEGRADA COMÚN (50 consultas).
+
+*** LEGACY / NO OPERATIVO (migración Hito 3) ***
+La variante "exacta" se derivaba de la imagen cruda del banco
+(data/images_final/). Esa carpeta fue ELIMINADA del proyecto; el conjunto de
+consultas ya existe en evaluation/consultas_hito2.csv. NO ejecutar tal cual:
+su fuente ya no existe.
 
 Genera evaluation/consultas_hito2.csv con las consultas DERIVABLES del banco
 sin inventar imágenes:

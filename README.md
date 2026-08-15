@@ -9,9 +9,7 @@ Plataforma de búsqueda visual de camisetas deportivas basada en **embeddings CL
 ```text
 [Scraper]  →  data/images/  (imágenes crudas)
                 │
-[consolidar.py] → data/products.csv + data/images_final/   (Sala 1)
-                │
-[normalizar_imagenes.py] → data/images_normalized/   (Sala 1, Hito 2)
+[consolidar.py] → data/products.csv + data/images_normalized/   (Sala 1)
                 │
 [generar_embeddings.py] → data/embeddings.npy + data/ids.npy   (Sala 4, Hito 1)
 [generar_indices_comparativos.py] → embeddings_clip/openclip/siglip.npy sobre images_normalized/   (Sala 4, Hito 2)
@@ -80,7 +78,7 @@ python scripts/consolidar.py
 
 Lee `data/productos.json` + `data/images/` y genera:
 - `data/products.csv` — dataset canónico (`id, proveedor, pagina, imagen, nombre_original, url`).
-- `data/images_final/` — imágenes renombradas con nomenclatura uniforme `AIM-PXXX-NNN.ext`.
+- `data/images_normalized/` — banco canónico: imágenes renombradas con nomenclatura uniforme `AIM-PXXX-NNN.ext`. (La carpeta legacy `images_final/` fue eliminada en la migración Hito 3.)
 
 Valida nomenclatura, duplicados, archivos existentes y apertura de imagen.
 
@@ -99,7 +97,7 @@ Reporta: registros totales/válidos, IDs duplicados, nombres vacíos, URLs vací
 python scripts/generar_embeddings.py
 ```
 
-Lee `products.csv` en orden, abre cada imagen de `images_final/`, genera su vector con **CLIP** (`openai/clip-vit-base-patch32`), lo normaliza con L2 y guarda:
+Lee `products.csv` en orden, abre cada imagen de `images_normalized/`, genera su vector con **CLIP** (`openai/clip-vit-base-patch32`), lo normaliza con L2 y guarda:
 - `data/embeddings.npy` — matriz `(N, 512)`.
 - `data/ids.npy` — IDs alineados por posición con los embeddings.
 
@@ -122,7 +120,7 @@ Al iniciar carga el índice y el modelo CLIP una sola vez. Endpoints:
 Prueba rápida desde otra terminal:
 
 ```bash
-curl -X POST -F "file=@data/images_final/AIM-P001-001.jpg" http://localhost:8000/search/image
+curl -X POST -F "file=@data/images_normalized/AIM-P001-001.jpg" http://localhost:8000/search/image
 ```
 
 ### 6. Levantar la interfaz (Sala 2)
@@ -153,7 +151,7 @@ python scripts/revisar_muestra_50.py                # → data/revision_humana_5
 ```
 
 Genera:
-- `data/images_normalized/` — 1000 imágenes `AIM-Pxxx-NNN.jpg` (mismo ID que `images_final/`).
+- `data/images_normalized/` — banco canónico de imágenes `AIM-PXXX-NNN.jpg` (mismo ID que `products.csv`).
 - `data/informe_normalizacion.txt` + `data/detalle_normalizacion.csv` — procesadas/fallidas, recortes correctos/incorrectos, tiempos y casos a revisar.
 - `data/informe_formatos.txt` + `data/detalle_formatos.csv` — formatos visuales, posición de marcos/cabecera/pie/URL, ubicación de frente y espalda, % recortable.
 - `data/revision_humana_50.csv` + `data/revision_contact_sheet.png` — muestra aleatoria de 50 con clasificación y hoja de contacto para el visto bueno visual.
@@ -232,14 +230,13 @@ WebScraping/
 │   └── app.py           # Interfaz Streamlit (Sala 2: antes/después, modos, comparación H1 vs H2)
 ├── data/
 │   ├── images/          # Imágenes crudas del scraping (fuente, legacy)
-│   ├── images_final/    # Imágenes con ID uniforme (entregable Sala 1)
-│   ├── images_normalized/ # Imágenes normalizadas frente+espalda (Sala 1, Hito 2)
+│   ├── images_normalized/ # Banco canónico: imágenes frente+espalda (Sala 1, Hito 2)
 │   ├── consultas/       # 50 consultas de prueba (Sala 2, Hito 2)
 │   ├── queries_original/   # Consultas originales guardadas por la API (Sala 2, Hito 2)
 │   ├── queries_procesadas/ # Consultas preparadas guardadas por la API (Sala 2, Hito 2)
 │   ├── montajes/        # Antes/después (Sala 2, Hito 2)
 │   ├── productos.csv    # Dataset canónico
-│   ├── embeddings.npy   # Vectores CLIP sobre images_final (Sala 4, Hito 1)
+│   ├── embeddings.npy   # Vectores CLIP sobre images_normalized (Sala 4, Hito 1)
 │   ├── embeddings_clip.npy      # Vectores CLIP sobre images_normalized (Sala 4, Hito 2)
 │   ├── embeddings_openclip.npy  # Vectores OpenCLIP sobre images_normalized (Sala 4, Hito 2)
 │   ├── embeddings_siglip.npy    # Vectores SigLIP 768d sobre images_normalized (Sala 4, Hito 2)
@@ -294,13 +291,20 @@ WebScraping/
 | `data/revision_humana_50.csv` | Clasificación de las 50 revisiones (Sala 1, Hito 2) |
 | `data/revision_humana_modelos_top5.csv` | Top 5 por consulta y modelo para clasificación humana (Sala 4, Hito 2) |
 
-> **Nota sobre archivos legacy:** `data/index_embeddings.npy` y `data/index_metadata.json` son de `scripts/build_index.py` (fuera del flujo integrado). El flujo del Hito 1 usa únicamente `embeddings.npy` + `ids.npy`.
+> **Nota (Hito 3):** el flujo legacy de `scripts/build_index.py` (que generaba
+> `data/index_embeddings.npy` y `data/index_metadata.json`) fue **eliminado** en
+> la limpieza de código del Hito 3 (junto con `scripts/search.py`,
+> `scripts/buscar_por_imagen.py`, `scripts/ingest.py`, `scripts/insertar_db.py`
+> y `scripts/reporte_evaluacion.py`, que quedaron obsoletos con la fusión
+> CLIP+OpenCLIP+SigLIP). El flujo integrado usa únicamente los índices
+> `embeddings_clip/openclip/siglip.npy` + `ids.npy` (Sala 4) y, como baseline
+> de comparación, `embeddings.npy` (Hito 1).
 
 ## Solución de problemas
 
 - **`ModuleNotFoundError`**: instala las dependencias (`pip install -r requirements.txt`).
 - **La API no responde en `/health`**: verifica que esté corriendo (`python -m uvicorn api.main:app --port 8000`). La interfaz muestra el error en el sidebar.
-- **El validador reporta imágenes faltantes**: asegúrate de haber corrido `consolidar.py` (el validador apunta a `data/images_final/`).
+- **El validador reporta imágenes faltantes**: asegúrate de haber corrido `consolidar.py` (el validador apunta a `data/images_normalized/`).
 - **Errores de codificación en consola (Windows)**: usa `set PYTHONIOENCODING=utf-8` antes de ejecutar, o activa la consola UTF-8.
 - **Primera ejecución lenta**: la descarga del modelo CLIP y de las imágenes toma unos minutos.
 

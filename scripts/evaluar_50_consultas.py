@@ -12,11 +12,11 @@ Entrada:
 Si `data/consultas_test_50.json` no existe, se genera automáticamente desde
 `data/consultas/` (16 consultas x 5 variantes: exacta, sin_marco, recortada,
 recoloreada, cuerpo) y `data/montajes/`. El id correcto de cada consulta se
-deriva por hash perceptual del archivo `cXX_exacto` contra `data/images_final/`
-(10 consultas por categoría, semilla 42 -> 5 x 10 = 50).
+deriva por hash perceptual del archivo `cXX_exacto` contra el banco canónico
+`data/images_normalized/` (10 consultas por categoría, semilla 42 -> 5 x 10 = 50).
 
 Salida:
-    data/evaluation_metrics.csv       reporte técnico Top1/Top5 por modelo (global y por categoría)
+    data/evaluation_metrics.csv       reporte técnico Top1/Top5/Puntaje50/50 por modelo (global y por categoría)
     data/revision_humana_modelos_top5.csv  estructura de revisión cualitativa: Top 5 por consulta/modelo
     data/tiempos.csv                  tiempos de búsqueda por consulta/modelo (filas anexas)
 
@@ -44,7 +44,8 @@ BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 CONSULTAS_DIR = os.path.join(DATA_DIR, "consultas")
 MONTAJES_DIR = os.path.join(DATA_DIR, "montajes")
-IMAGES_FINAL_DIR = os.path.join(DATA_DIR, "images_final")
+IMAGES_BANCO_DIR = os.path.join(DATA_DIR, "images_normalized")
+IMAGES_FINAL_DIR = os.path.join(DATA_DIR, "images_final")  # fallback histórico (eliminado en migración Hito 3)
 IDS_PATH = os.path.join(DATA_DIR, "ids.npy")
 TEST_SET_JSON = os.path.join(DATA_DIR, "consultas_test_50.json")
 EVAL_METRICS_CSV = os.path.join(DATA_DIR, "evaluation_metrics.csv")
@@ -57,6 +58,15 @@ TIEMPOS_CSV = os.path.join(DATA_DIR, "tiempos.csv")
 TOP_K = 5
 SEMILLA = 42
 POR_CATEGORIA = 10
+
+
+def puntaje_combinado_50_50(precision_top1, precision_top5):
+    """
+    Métrica combinada 50/50 (Hito 3): cada bloque (Top-1 y Top-5) aporta como
+    máximo 50 puntos; alcanzar 50 en un bloque = 100% de cumplimiento de ese
+    top. Equivale a 0.5 * precision_top1 + 0.5 * precision_top5 (sobre 100).
+    """
+    return round(0.5 * float(precision_top1) + 0.5 * float(precision_top5), 2)
 
 VARIANTE_A_CATEGORIA = {
     "exacto": "exacta",
@@ -107,15 +117,26 @@ def hash_perceptual(ruta, size=16):
     return a > a.mean()
 
 
+def _banco_dir():
+    """Banco canónico (images_normalized); fallback a images_final si existiera."""
+    if os.path.isdir(IMAGES_BANCO_DIR):
+        return IMAGES_BANCO_DIR
+    return IMAGES_FINAL_DIR if os.path.isdir(IMAGES_FINAL_DIR) else None
+
+
 def derivar_ids_correctos():
     """
     Mapea cada consulta cXX a su id del catálogo comparando el archivo
-    `cXX_exacto` (hash perceptual) contra `data/images_final/`. Solo se
-    aceptan coincidencias únicas.
+    `cXX_exacto` (hash perceptual) contra el banco canónico
+    `data/images_normalized/`. Solo se aceptan coincidencias únicas.
     """
+    banco = _banco_dir()
+    if banco is None:
+        print("  [ERROR] no existe ningún banco de imágenes (images_normalized/images_final)")
+        return {}
     refs = {}
-    for nombre in sorted(os.listdir(IMAGES_FINAL_DIR)):
-        h = hash_perceptual(os.path.join(IMAGES_FINAL_DIR, nombre))
+    for nombre in sorted(os.listdir(banco)):
+        h = hash_perceptual(os.path.join(banco, nombre))
         if h is not None:
             refs[nombre] = h
 
@@ -329,23 +350,29 @@ def evaluar(cfg, consultas, device):
             })
 
     n = max(1, aciertos["n"])
+    p1_global = round(100 * aciertos["top1"] / n, 2)
+    p5_global = round(100 * aciertos["top5"] / n, 2)
     metricas_global = {
         "modelo": cfg["clave"], "categoria": "global", "n_consultas": aciertos["n"],
         "top1_correctos": aciertos["top1"],
-        "precision_top1": round(100 * aciertos["top1"] / n, 2),
+        "precision_top1": p1_global,
         "top5_correctos": aciertos["top5"],
-        "precision_top5": round(100 * aciertos["top5"] / n, 2),
+        "precision_top5": p5_global,
+        "puntaje_combinado": puntaje_combinado_50_50(p1_global, p5_global),
         "tiempo_busqueda_prom_ms": round(1000 * (sum(tiempos) / n), 2) if tiempos else 0.0,
     }
     metricas_por_categoria = []
     for categoria, m in sorted(por_categoria.items()):
         n_cat = max(1, m["n"])
+        p1_cat = round(100 * m["top1"] / n_cat, 2)
+        p5_cat = round(100 * m["top5"] / n_cat, 2)
         metricas_por_categoria.append({
             "modelo": cfg["clave"], "categoria": categoria, "n_consultas": m["n"],
             "top1_correctos": m["top1"],
-            "precision_top1": round(100 * m["top1"] / n_cat, 2),
+            "precision_top1": p1_cat,
             "top5_correctos": m["top5"],
-            "precision_top5": round(100 * m["top5"] / n_cat, 2),
+            "precision_top5": p5_cat,
+            "puntaje_combinado": puntaje_combinado_50_50(p1_cat, p5_cat),
             "tiempo_busqueda_prom_ms": "",
         })
 
@@ -353,6 +380,7 @@ def evaluar(cfg, consultas, device):
           f"({metricas_global['precision_top1']:.1f}%)  "
           f"Top5={aciertos['top5']}/{aciertos['n']} "
           f"({metricas_global['precision_top5']:.1f}%)  "
+          f"Puntaje50/50={metricas_global['puntaje_combinado']:.1f}  "
           f"tiempo prom={metricas_global['tiempo_busqueda_prom_ms']:.0f} ms")
     return metricas_global, metricas_por_categoria, filas_revision
 
@@ -390,7 +418,7 @@ def main():
     # ── evaluation_metrics.csv (reporte técnico) ──
     columnas = ["modelo", "categoria", "n_consultas", "top1_correctos",
                 "precision_top1", "top5_correctos", "precision_top5",
-                "tiempo_busqueda_prom_ms"]
+                "puntaje_combinado", "tiempo_busqueda_prom_ms"]
     with open(EVAL_METRICS_CSV, "w", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=columnas)
         writer.writeheader()
@@ -405,12 +433,14 @@ def main():
         writer.writerows(filas_revision)
 
     print("\n" + "=" * 72)
-    print("RESUMEN GLOBAL (precision_top1 / precision_top5)")
+    print("RESUMEN GLOBAL (precision_top1 / precision_top5 / puntaje 50/50)")
     print("=" * 72)
     for m in filas_metricas:
         if m["categoria"] == "global":
             print(f"  {m['modelo']:<10s} Top1={m['precision_top1']:6.2f}%  "
-                  f"Top5={m['precision_top5']:6.2f}%  ({m['n_consultas']} consultas)")
+                  f"Top5={m['precision_top5']:6.2f}%  "
+                  f"P50/50={m['puntaje_combinado']:6.2f}/100  "
+                  f"({m['n_consultas']} consultas)")
     print(f"Reporte técnico : {EVAL_METRICS_CSV}")
     print(f"Revisión humana : {REVISION_CSV}")
     print(f"Tiempos anexados: {TIEMPOS_CSV}")

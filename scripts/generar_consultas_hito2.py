@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-generar_consultas_hito2.py (Sala 2 - Hito 2)
----------------------------------------------
+generar_consultas_hito2.py (Sala 2 - Hito 2)  [LEGACY]
+------------------------------------------------------
 Genera el conjunto comun de 50 consultas de prueba para el Hito 2.
+
+*** LEGACY / NO OPERATIVO (migración Hito 3) ***
+La variante "exacto" se derivaba intencionalmente de la imagen cruda con marco
+(data/images_final/). Esa carpeta fue ELIMINADA del proyecto y el conjunto de
+50 consultas ya existe en data/consultas/ + evaluation/consultas_hito2.csv.
+NO ejecutar tal cual: su fuente (IMG_SRC) ya no existe.
 
 Estructura:
     10 disenos del banco (diversos)

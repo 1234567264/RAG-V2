@@ -13,8 +13,9 @@ endpoints y se revisa si el id_correcto esperado quedó en Top1 y en Top5:
 Además mide el tiempo de cada consulta por motor (requisito: "Medición de
 tiempos") y guarda la evidencia en:
 
-    data/comparacion_hito1_hito2.csv   detalle por consulta (top1/top5/tiempos)
+    data/comparacion_hito1_hito2.csv   detalle por consulta (top1/top5/tiempos/score del Top 1)
     data/comparacion_hito1_hito2.json  resumen agregado por motor y por categoría
+                                      (incluye puntaje_combinado 50/50 = 0.5*Top1% + 0.5*Top5%)
 
 CONSULTAS DE PRUEBA (evaluation/consultas_hito2.csv):
     Columnas: consulta, categoria, ruta_imagen, id_correcto
@@ -53,12 +54,22 @@ ENDPOINT_H2 = "/search/image/v2"
 
 CATEGORIAS = ("exacta", "sin_marco", "recoloreada", "recortada", "persona")
 
+
+def puntaje_combinado_50_50(precision_top1, precision_top5):
+    """
+    Métrica combinada 50/50 (Hito 3): cada bloque (Top-1 y Top-5) aporta como
+    máximo 50 puntos; alcanzar 50 en un bloque = 100% de cumplimiento de ese
+    top. Equivale a 0.5 * precision_top1 + 0.5 * precision_top5 (sobre 100).
+    """
+    return round(0.5 * float(precision_top1) + 0.5 * float(precision_top5), 2)
+
 # Conjunto de respaldo si no existe evaluation/consultas_hito2.csv
+# (el banco canónico es data/images_normalized/ desde la migración Hito 3)
 TEST_SET_FALLBACK = [
-    (os.path.join("data", "images_final", "AIM-P001-001.jpg"), "AIM-P001-001"),
-    (os.path.join("data", "images_final", "AIM-P001-002.jpg"), "AIM-P001-002"),
-    (os.path.join("data", "images_final", "AIM-P001-003.jpg"), "AIM-P001-003"),
-    (os.path.join("data", "images_final", "AIM-P001-004.jpg"), "AIM-P001-004"),
+    (os.path.join("data", "images_normalized", "AIM-P001-001.jpg"), "AIM-P001-001"),
+    (os.path.join("data", "images_normalized", "AIM-P001-002.jpg"), "AIM-P001-002"),
+    (os.path.join("data", "images_normalized", "AIM-P001-003.jpg"), "AIM-P001-003"),
+    (os.path.join("data", "images_normalized", "AIM-P001-004.jpg"), "AIM-P001-004"),
 ]
 
 
@@ -171,10 +182,10 @@ def main():
              "h2fu": {"top1": 0, "top5": 0, "n": 0, "tiempos": []}}
 
     encabezado = ("consulta", "categoria", "id_correcto", "archivo",
-                  "h1_top1", "h1_top5", "h1_tiempo_ms", "h1_mejor_id", "h1_n_resultados",
-                  "h2_top1", "h2_top5", "h2_tiempo_ms", "h2_mejor_id", "h2_n_resultados",
-                  "h2oc_top1", "h2oc_top5", "h2oc_tiempo_ms", "h2oc_mejor_id", "h2oc_n_resultados",
-                  "h2fu_top1", "h2fu_top5", "h2fu_tiempo_ms", "h2fu_mejor_id", "h2fu_n_resultados")
+                  "h1_top1", "h1_top5", "h1_tiempo_ms", "h1_mejor_id", "h1_mejor_score", "h1_n_resultados",
+                  "h2_top1", "h2_top5", "h2_tiempo_ms", "h2_mejor_id", "h2_mejor_score", "h2_n_resultados",
+                  "h2oc_top1", "h2oc_top5", "h2oc_tiempo_ms", "h2oc_mejor_id", "h2oc_mejor_score", "h2oc_n_resultados",
+                  "h2fu_top1", "h2fu_top5", "h2fu_tiempo_ms", "h2fu_mejor_id", "h2fu_mejor_score", "h2fu_n_resultados")
 
     print("=" * 100)
     print("SALA 3 / HITO 2 - COMPARACION HITO 1 vs HITO 2 (mismas consultas)")
@@ -193,10 +204,10 @@ def main():
         fila = {
             "consulta": c["consulta"], "categoria": c["categoria"],
             "id_correcto": c["id_correcto"], "archivo": os.path.basename(ruta),
-            "h1_top1": "-", "h1_top5": "-", "h1_tiempo_ms": "-", "h1_mejor_id": "-", "h1_n_resultados": "-",
-            "h2_top1": "-", "h2_top5": "-", "h2_tiempo_ms": "-", "h2_mejor_id": "-", "h2_n_resultados": "-",
-            "h2oc_top1": "-", "h2oc_top5": "-", "h2oc_tiempo_ms": "-", "h2oc_mejor_id": "-", "h2oc_n_resultados": "-",
-            "h2fu_top1": "-", "h2fu_top5": "-", "h2fu_tiempo_ms": "-", "h2fu_mejor_id": "-", "h2fu_n_resultados": "-",
+            "h1_top1": "-", "h1_top5": "-", "h1_tiempo_ms": "-", "h1_mejor_id": "-", "h1_mejor_score": "-", "h1_n_resultados": "-",
+            "h2_top1": "-", "h2_top5": "-", "h2_tiempo_ms": "-", "h2_mejor_id": "-", "h2_mejor_score": "-", "h2_n_resultados": "-",
+            "h2oc_top1": "-", "h2oc_top5": "-", "h2oc_tiempo_ms": "-", "h2oc_mejor_id": "-", "h2oc_mejor_score": "-", "h2oc_n_resultados": "-",
+            "h2fu_top1": "-", "h2fu_top5": "-", "h2fu_tiempo_ms": "-", "h2fu_mejor_id": "-", "h2fu_mejor_score": "-", "h2fu_n_resultados": "-",
         }
 
         for motor, endpoint, probar, extra in (
@@ -221,6 +232,14 @@ def main():
             fila[f"{motor}_top5"] = "SI" if top5_ok else "no"
             fila[f"{motor}_tiempo_ms"] = round(tiempo * 1000, 1)
             fila[f"{motor}_mejor_id"] = id_top1
+            # Mejor score del Top 1: score_reranking en motores H2, score en
+            # H1. Sirve para calibrar el UMBRAL_MINIMO_SIMILARIDAD con datos
+            # reales (ver REPORTES_OPTIMIZACION_50_50.md).
+            fila[f"{motor}_mejor_score"] = (
+                round(float(resultados[0].get("score_reranking")
+                            or resultados[0].get("score") or 0.0), 4)
+                if resultados else "-"
+            )
             fila[f"{motor}_n_resultados"] = len(resultados)
 
             total[motor]["top1"] += int(top1_ok)
@@ -264,11 +283,17 @@ def main():
         t = total[motor]
         n = max(1, t["n"])
         prom_ms = (sum(t["tiempos"]) / n * 1000) if t["tiempos"] else 0
-        print(f"{etiqueta:<38s} Top1={t['top1']}/{t['n']} ({100*t['top1']/n:.1f}%)"
-              f"  Top5={t['top5']}/{t['n']} ({100*t['top5']/n:.1f}%)"
+        p1 = 100 * t["top1"] / n
+        p5 = 100 * t["top5"] / n
+        pc = puntaje_combinado_50_50(p1, p5)
+        print(f"{etiqueta:<38s} Top1={t['top1']}/{t['n']} ({p1:.1f}%)"
+              f"  Top5={t['top5']}/{t['n']} ({p5:.1f}%)"
+              f"  P50/50={pc:.1f}/100"
               f"  tiempo prom={prom_ms:.0f} ms")
         resumen["por_motor"][motor] = {
             "top1": t["top1"], "top5": t["top5"], "n": t["n"],
+            "precision_top1": round(p1, 2), "precision_top5": round(p5, 2),
+            "puntaje_combinado": pc,
             "tiempo_promedio_ms": round(prom_ms, 1),
         }
 

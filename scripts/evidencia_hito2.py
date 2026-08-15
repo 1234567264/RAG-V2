@@ -29,7 +29,7 @@ sys.path.insert(0, BASE_DIR)
 from api.preprocesar_consulta import preparar_consulta  # noqa: E402
 
 CONSULTAS = os.path.join(BASE_DIR, "data", "consultas")
-IMGS = os.path.join(BASE_DIR, "data", "images_final")
+IMGS = os.path.join(BASE_DIR, "data", "images_normalized")
 RES_CSV = os.path.join(BASE_DIR, "data", "resultados_hito2.csv")
 MONT_OUT = os.path.join(BASE_DIR, "data", "montajes")
 EVIDENCIA_TXT = os.path.join(BASE_DIR, "data", "evidencia_coherencia_hito2.txt")

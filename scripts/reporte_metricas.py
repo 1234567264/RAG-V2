@@ -29,6 +29,15 @@ TIEMPOS_CSV = os.path.join(DATA_DIR, "tiempos.csv")
 UMBRAL_FALSO_POSITIVO = 0.70
 
 
+def puntaje_combinado_50_50(precision_top1, precision_top5):
+    """
+    Métrica combinada 50/50 (Hito 3): cada bloque (Top-1 y Top-5) aporta como
+    máximo 50 puntos; alcanzar 50 en un bloque = 100% de cumplimiento de ese
+    top. Equivale a 0.5 * precision_top1 + 0.5 * precision_top5 (sobre 100).
+    """
+    return round(0.5 * float(precision_top1) + 0.5 * float(precision_top5), 2)
+
+
 def clasificacion_ok(etiqueta: str) -> bool:
     return etiqueta in ("Correcto", "Util_no_duplicado")
 
@@ -79,6 +88,11 @@ def main():
     print(f"Consultas evaluadas: {n_consultas} (la consigna pide 20)")
     print(f"Precision Top 1 : {top1} de {n_consultas} ({top1 / n_consultas * 100:.1f}%)" if n_consultas else "Precision Top 1 : 0")
     print(f"Precision Top 5 : {top5} de {n_consultas} ({top5 / n_consultas * 100:.1f}%)" if n_consultas else "Precision Top 5 : 0")
+    if n_consultas:
+        p1 = top1 / n_consultas * 100
+        p5 = top5 / n_consultas * 100
+        print(f"Puntaje 50/50   : {puntaje_combinado_50_50(p1, p5)}/100 "
+              f"(0.5*Top1% + 0.5*Top5%)")
     print(f"Falsos positivos (Incorrecto con score >= {UMBRAL_FALSO_POSITIVO}): {len(falsos_positivos)}")
     print(f"Falsos negativos (consultas sin resultados relevantes): {len(falsos_negativos)}")
 

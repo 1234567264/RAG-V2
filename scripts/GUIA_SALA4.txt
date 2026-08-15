@@ -20,13 +20,18 @@ Asegurate de que tus archivos esten ubicados en estas rutas:
    │
    ├── data/
    │   ├── products.csv        <- CSV entregado por Sala 1 (orden de lectura)
-   │   ├── images_final/       <- Carpeta con las imagenes referenciadas en el CSV
-   │   ├── embeddings.npy      <- Salida: matriz de vectores N x 512 (normalizados L2)
-   │   └── ids.npy             <- Salida: IDs en el mismo orden que embeddings.npy
+   │   ├── images_normalized/  <- Banco canonico (imagenes del CSV; unica carpeta de busqueda)
+   │   │                          (images_final/ fue eliminada en la migracion Hito 3)
+   │   ├── embeddings_clip.npy / embeddings_openclip.npy / embeddings_siglip.npy
+   │   │                       <- Indices del Hito 2 (Sala 4) sobre images_normalized/
+   │   └── ids.npy             <- Salida: IDs en el mismo orden que los embeddings
    │
-   ├── generar_embeddings.py   <- Script 1: Convierte imagenes a vectores
-   ├── buscar_por_imagen.py    <- Script 2: Busca por similitud coseno (Top 5)
+   ├── api/search_engine_hito2.py  <- Motor actual: fusion + reranking visual
    └── GUIA_SALA4.txt          <- Este archivo de guia
+
+NOTA (Hito 3): los scripts standalone `buscar_por_imagen.py` y `search.py`
+fueron eliminados en la limpieza de codigo. La busqueda se realiza a traves
+de la API de Sala 3 (api/main.py).
 
 
 3. ORDEN DE EJECUCION
@@ -49,20 +54,25 @@ Asegurate de que tus archivos esten ubicados en estas rutas:
 
 
    PASO 2: Probar la busqueda visual por similitud
-   Envia una imagen de prueba para obtener las 5 mas parecidas:
+   Con la API de Sala 3 corriendo (en la raiz del proyecto):
 
-      python buscar_por_imagen.py data/images_final/AIM-P001-001.jpg
+      python -m uvicorn api.main:app --port 8000
+
+   y en otra terminal:
+
+      curl -X POST -F "file=@data/images_normalized/AIM-P001-001.jpg" \
+           -F "modelo=fusion" http://localhost:8000/search/image/v2
 
 
 4. PRUEBAS CON IMAGENES EXTERNAS (fuera de la biblioteca base)
 ----------------------------------------------------------------------
-Ejecuta al menos 3 tipos de imagenes externas: una muy parecida, otra con
-colores diferentes y una no relacionada, midiendo el tiempo de consulta:
+Para probar con imagenes externas (muy parecida, colores diferentes, no
+relacionada) se usa la evaluacion integrada de 50 consultas con fusion:
 
-   python buscar_por_imagen.py --test-externo \
-       test/muy_parecida.jpg \
-       test/colores_diferentes.jpg \
-       test/no_relacionada.jpg
+   python scripts/compare_hito1_hito2.py --fusion
+
+o se envian las imagenes una a una por curl al endpoint /search/image/v2
+con modelo=fusion (el mas robusto).
 
 NOTA SOBRE EL SCORE DE SIMILITUD
 ----------------------------------------------------------------------

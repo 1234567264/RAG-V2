@@ -659,3 +659,90 @@ app al estado que el usuario confirmó como bueno.
 **Verificado:** py_compile OK; AppTest oscuro/claro sin excepciones y
 con 5 download_buttons tras subir data/consultas/c01_cuerpo.jpeg.
 El usuario debe recargar con Ctrl+F5 (caché de bundle anterior).
+
+## Fecha: 2026-08-15 (limpieza legacy + métrica 50/50 Top-1/Top-5 + filtrado estricto Top 5)
+
+### Prompt - Limpiar el código eliminando embeddings y funciones antiguas que ya no se necesitan con la fusión implementada; optimizar los algoritmos de búsqueda equilibrando la ponderación/score a un split 50/50 entre Top-1 y Top-5 al evaluar; refinar umbrales y filtros de ranking para que el Top 5 no fuerce resultados irrelevantes; y generar un reporte .md completo de todos los cambios.
+**Decisiones tomadas:**
+- El "split 50/50" (aclarado por el usuario) = cada bloque Top-1 y Top-5 aporta
+  máx. 50 puntos; 50 = 100% de cumplimiento de ese top. Métrica combinada
+  P50/50 = 0.5·Top1% + 0.5·Top5%.
+- Eliminados 6 scripts legacy: `build_index.py`, `search.py`,
+  `buscar_por_imagen.py`, `ingest.py`, `insertar_db.py`, `reporte_evaluacion.py`
+  (confirmado por el usuario). Se conservaron `generar_embeddings.py` (baseline
+  Hito 1), `get_product.py` y la ruta de respaldo `index_embeddings.npy`.
+**Cambios aplicados:**
+- `api/search_engine_hito2.py`: nuevo `UMBRAL_MINIMO_SIMILARIDAD = 0.40`
+  (corte absoluto) + corte relativo `MARGEN_CORTE` en `_rerank_candidatos`;
+  el Top 5 ahora puede devolver 0..5 resultados sin relleno. Docstring del
+  módulo documenta la calibración contra la métrica 50/50.
+- `scripts/evaluar_50_consultas.py`: columna `puntaje_combinado` en
+  `evaluation_metrics.csv` y en el resumen.
+- `scripts/compare_hito1_hito2.py`: `puntaje_combinado` en el JSON/consola +
+  columnas `*_mejor_score` por consulta (para recalibrar el umbral con datos).
+- `scripts/reporte_comparativo.py`: columna P50/50; el ganador se decide por la
+  métrica combinada.
+- `scripts/reporte_metricas.py` y `scripts/evaluar_hito2.py`: línea/columna
+  P50/50.
+- `README.md` y `scripts/GUIA_SALA4.txt`: referencias a los scripts eliminados
+  actualizadas.
+- Nuevo `REPORTES_HITO3_OPTIMIZACION.md` con el detalle completo y la línea
+  base real (fusión P50/50 = 90/100).
+**Verificado:** py_compile OK (6 archivos); venv liviano
+(numpy/pandas/pillow/opencv-headless) sin torch: `reporte_metricas.py` real
+imprime Puntaje 50/50; `reporte_comparativo.py` con datos sintéticos elige al
+ganador por P50/50; `_rerank_candidatos` probado con imágenes reales del banco
+(casos A idéntica/B persona): filtrado sin relleno y sin resultados bajo el
+umbral; cabecera CSV de `compare_hito1_hito2.py` consistente (28/28 columnas).
+**Pendiente:** recalibrar `UMBRAL_MINIMO_SIMILARIDAD` con la API corriendo
+(`compare_hito1_hito2.py --fusion`); no existe `.venv` en el repo y el Python
+del sistema (3.14) está bloqueado por PEP 668, por lo que la recalibración
+requiere crear el venv del proyecto.
+
+## Fecha: 2026-08-15 (migración images_final -> images_normalized)
+
+### Prompt - Necesito realizar una migración completa en el proyecto actual. El objetivo es reemplazar todas las referencias, llamadas, importaciones y dependencias de images_final por images_normalized, ya que esta última es la versión actualizada y correcta. Pasos: (1) análisis de impacto; (2) refactorización de código (imports, variables, rutas, lógica); (3) validación de integridad de rutas; (4) limpieza: eliminar el directorio images_final. Restricciones: sin git, cambios directos en el filesystem, detenerse y explicar conflictos si la migración no es directa.
+
+**Contexto:** images_final (15.272 archivos, 2,1 GB) era la salida de Sala 1
+(consolidar.py) y la fuente de normalizar_imagenes.py. images_normalized es el
+banco canónico (mismo conteo 15.272) y el que ya usaban los índices Hito 2, el
+precomputo de descriptores y los motores. products.csv tiene 15.273 filas.
+
+**Decisiones del usuario (consultadas ante conflictos):**
+- consolidar.py se ADAPTA para producir images_normalized; normalizar_imagenes.py
+  y analizar_formatos.py se marcan legacy (no operativos).
+- Registros históricos (revision_humana_50/100.csv, AI_LOG, REPORTES_*,
+  informes de evaluación) se dejan INTACTOS; solo se migran docs operativas
+  (README, AGENTS, GUIA_SALA4).
+- Generadores de consultas (generar_consultas_hito2.py, generar_consultas_prueba.py)
+  se marcan legacy (la variante "exacta" requería la imagen cruda con marco);
+  evaluar_50_consultas.py se migra con fallback a images_final si existiera.
+
+**Cambios:**
+- `scripts/compare_hito1_hito2.py`: TEST_SET_FALLBACK -> data/images_normalized/.
+- `scripts/evidencia_hito2.py`: IMGS -> data/images_normalized/.
+- `scripts/generar_indices_comparativos.py` y `scripts/precomputar_descriptores.py`:
+  solo comentarios actualizados (el código ya usaba images_normalized).
+- `scripts/consolidar.py`: RUTA_IMAGENES_DESTINO -> data/images_normalized/
+  (nota documentada: regenerar desde scraping entrega tarjetas tal cual;
+  normalización ya no se reaplica). Docstring y limpieza de huérfanos actualizados.
+- `scripts/normalizar_imagenes.py`, `scripts/analizar_formatos.py`,
+  `scripts/generar_consultas_hito2.py`, `scripts/generar_consultas_prueba.py`:
+  marcados [LEGACY] con banner explicando que su fuente ya no existe.
+- `scripts/evaluar_50_consultas.py`: IMAGES_BANCO_DIR = images_normalized
+  (primario) + IMAGES_FINAL_DIR como fallback histórico; `_banco_dir()` resuelve
+  y `derivar_ids_correctos()` valida que exista un banco.
+- Docs operativas: `README.md` (flujo, consola, árbol, nota del validador),
+  `AGENTS.md` (estructura canónica, arquitectura Hito 1 -> images_normalized,
+  nombre corregido a scripts/generar_embeddings.py) y `scripts/GUIA_SALA4.txt`
+  (árbol + curl) actualizadas.
+- ELIMINADO data/images_final/ (15.272 archivos, 2,1 GB) del filesystem.
+
+**Verificado:** py_compile OK (10 scripts); banco resuelto por evaluar_50_consultas
+= images_normalized; imágenes clave (AIM-P001-001/002/003/004/013/016.jpg)
+existen en images_normalized; grep residual: solo quedan referencias intencionales
+(notas "fue eliminada", banners legacy, fallback) y registros históricos intactos;
+runtime activo (api/, motores, índices, descriptores, validador) sin referencias
+a images_final; images_normalized intacto (15.272 archivos) tras la eliminación.
+**Pendiente:** la regeneración del banco vía consolidar.py entregará ahora tarjetas
+tal cual (sin normalización); normalizar_imagenes.py quedó como referencia.

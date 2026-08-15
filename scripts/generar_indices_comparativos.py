@@ -46,8 +46,8 @@ BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 DATA_DIR = os.path.join(BASE_DIR, "data")
 CSV_PATH = os.path.join(DATA_DIR, "products.csv")
 # Hito 2 (TRABAJO.md, Sala 4): los tres índices deben usar EXACTAMENTE las
-# mismas imágenes NORMALIZADAS por Sala 1 (data/images_normalized/), no las
-# originales con marco (data/images_final/).
+# imágenes del banco canónico (data/images_normalized/). images_final fue
+# eliminada del proyecto en la migración Hito 3.
 IMAGES_DIR = os.path.join(DATA_DIR, "images_normalized")
 IDS_PATH = os.path.join(DATA_DIR, "ids.npy")
 TIEMPOS_CSV = os.path.join(DATA_DIR, "tiempos.csv")

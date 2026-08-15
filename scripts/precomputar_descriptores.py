@@ -17,9 +17,9 @@ Salida:
         "descriptores": [ {color_dominante, gama, patron, marco, franjas}, ... ]
     }
 
-NOTA: NO se leen imagenes de otra carpeta de data (ni images_final/ ni
-images_original/). Si un producto no resuelve en images_normalized/ se
-marca como error, no se sustituye por otra carpeta.
+NOTA: NO se leen imagenes de otra carpeta de data (solo images_normalized/;
+images_final fue eliminada del proyecto). Si un producto no resuelve en
+images_normalized/ se marca como error, no se sustituye por otra carpeta.
 
 Uso:
     python scripts/precomputar_descriptores.py

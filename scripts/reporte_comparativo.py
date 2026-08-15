@@ -13,8 +13,9 @@ Lee los archivos generados por las salas previas del flujo:
 
 Muestra en consola una tabla comparativa consolidada: precisión Top 1 y Top 5,
 tiempos de generación de cada índice, tiempo promedio de búsqueda por consulta
-y estado de la revisión humana. Al final declara el modelo ganador (mejor Top1,
-desempate por Top5 y luego por tiempo de búsqueda).
+y estado de la revisión humana. Al final declara el modelo ganador con la
+métrica combinada 50/50 (0.5*Top1% + 0.5*Top5%; cada bloque aporta máx. 50
+puntos, desempate por Top1, Top5 y luego tiempo de búsqueda).
 
 Solo usa la biblioteca estándar (csv). Uso:
 
@@ -35,6 +36,15 @@ MODELO_CLAVE = {
     "openclip": "OpenCLIP",
     "siglip": "SigLIP",
 }
+
+
+def puntaje_combinado_50_50(precision_top1, precision_top5):
+    """
+    Métrica combinada 50/50 (Hito 3): cada bloque (Top-1 y Top-5) aporta como
+    máximo 50 puntos; alcanzar 50 en un bloque = 100% de cumplimiento de ese
+    top. Equivale a 0.5 * precision_top1 + 0.5 * precision_top5 (sobre 100).
+    """
+    return round(0.5 * float(precision_top1) + 0.5 * float(precision_top5), 2)
 
 
 def cargar_metricas():
@@ -124,7 +134,7 @@ def imprimir_tabla(globales, tiempos_gen, tiempos_busq, revision):
 
     print("\nTabla consolidada por modelo:")
     print("-" * 96)
-    print(f"{'Modelo':<10s}{'Top1%':>9s}{'Top5%':>9s}{'N':>5s}"
+    print(f"{'Modelo':<10s}{'Top1%':>9s}{'Top5%':>9s}{'P50/50':>9s}{'N':>5s}"
           f"{'Gen (s)':>10s}{'Búsq (ms)':>12s}{'Rev':>14s}")
     print("-" * 96)
 
@@ -138,18 +148,21 @@ def imprimir_tabla(globales, tiempos_gen, tiempos_busq, revision):
         rev_txt = f"{rev['clasificadas']}/{rev['total']}" if rev else ""
         gen_txt = f"{gen:>9.1f}" if gen is not None else "     n/d"
         busq_txt = f"{busq:>11.1f}" if busq is not None else "         n/d"
+        pc = puntaje_combinado_50_50(r["precision_top1"], r["precision_top5"])
         print(f"{nombre:<10s}{r['precision_top1']:>8.2f}%{r['precision_top5']:>8.2f}%"
-              f"{r['n_consultas']:>5d}{gen_txt:>10s}{busq_txt:>12s}{rev_txt:>14s}")
+              f"{pc:>8.2f}{r['n_consultas']:>5d}{gen_txt:>10s}{busq_txt:>12s}{rev_txt:>14s}")
         candidatos.append({
             "clave": clave, "nombre": nombre,
             "top1": r["precision_top1"], "top5": r["precision_top5"],
+            "puntaje": pc,
             "busq_ms": busq,
         })
 
     print("-" * 96)
-    print("Top1% / Top5% = precisión sobre las 50 consultas. Gen = tiempo de\n"
-          "generación del índice. Búsq = tiempo promedio por consulta.\n"
-          "Rev = filas clasificadas/total en data/revision_humana_50.csv.")
+    print("Top1% / Top5% = precisión sobre las 50 consultas. P50/50 = métrica\n"
+          "combinada 0.5*Top1% + 0.5*Top5% (cada bloque aporta máx. 50 puntos).\n"
+          "Gen = tiempo de generación del índice. Búsq = tiempo promedio por\n"
+          "consulta. Rev = filas clasificadas/total en data/revision_humana_50.csv.")
 
     return candidatos
 
@@ -176,15 +189,19 @@ def declarar_ganador(candidatos):
         return
     ganador = max(
         candidatos,
-        key=lambda c: (c["top1"], c["top5"],
+        key=lambda c: (c["puntaje"], c["top1"], c["top5"],
                        -(c["busq_ms"] if c["busq_ms"] is not None else 1e18)),
     )
     print("\n" + "=" * 96)
     print(f"MODELO GANADOR: {ganador['nombre']}  "
-          f"(Top1 {ganador['top1']:.2f}% / Top5 {ganador['top5']:.2f}%)")
+          f"(P50/50 {ganador['puntaje']:.2f}/100 · "
+          f"Top1 {ganador['top1']:.2f}% / Top5 {ganador['top5']:.2f}%)")
     print("=" * 96)
-    print("Criterio: mayor precisión Top 1; desempate por Top 5 y luego por\n"
-          "tiempo promedio de búsqueda. Confirmar con la revisión humana de\n"
+    print("Criterio (Hito 3): mayor métrica combinada 50/50\n"
+          "(0.5*Top1% + 0.5*Top5%; cada bloque aporta máx. 50 puntos), para no\n"
+          "sacrificar la recuperación del Top 5 en pos de la precisión del Top 1\n"
+          "ni viceversa. Desempate por Top1, luego Top5 y luego tiempo promedio\n"
+          "de búsqueda. Confirmar con la revisión humana de\n"
           "data/revision_humana_50.csv (utilidad cualitativa de los Top 2-5).")
 
 

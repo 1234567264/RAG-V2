@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-analizar_formatos.py  -  Sala 1 / Hito 2, Actividad 1
------------------------------------------------------
+analizar_formatos.py  -  Sala 1 / Hito 2, Actividad 1  [LEGACY]
+----------------------------------------------------------------
 Analisis del banco de imagenes (muestra >= 100 imagenes, por defecto las 1000):
+
+*** LEGACY / NO OPERATIVO (migración Hito 3) ***
+Este script analizaba los formatos de las tarjetas en data/images_final/
+(la fuente de la lógica de normalización). La carpeta data/images_final/ fue
+ELIMINADA del proyecto; data/images_normalized/ es el banco canónico y ya no
+contiene tarjetas con cabecera/marco. NO ejecutar tal cual: su fuente ya no
+existe.
 
   - cuantos formatos visuales diferentes existen (agrupados por firma de estructura);
   - si los marcos aparecen siempre en posiciones similares (espesor por lado);

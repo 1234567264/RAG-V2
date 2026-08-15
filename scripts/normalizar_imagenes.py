@@ -1,8 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-normalizar_imagenes.py  -  Sala 1 / Hito 2
--------------------------------------------
+normalizar_imagenes.py  -  Sala 1 / Hito 2  [LEGACY]
+-----------------------------------------------------
 Normalizacion automatica del banco de imagenes.
+
+*** LEGACY / NO OPERATIVO (migración Hito 3) ***
+Este script convertía data/images_final/ -> data/images_normalized/. La
+carpeta data/images_final/ fue ELIMINADA del proyecto; data/images_normalized/
+es ahora el banco canónico (único). El script se conserva solo como referencia
+de la lógica de recorte. NO ejecutar tal cual: su fuente ya no existe.
 
 Objetivo (TRABAJO.md, Hito 2 - Sala 1):
   Transformar las imagenes del catalogo en imagenes limpias y estandarizadas

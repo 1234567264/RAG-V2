@@ -39,6 +39,15 @@ SALIDA_CSV = os.path.join(BASE_DIR, "data", "resultados_hito2.csv")
 SALIDA_TXT = os.path.join(BASE_DIR, "data", "resumen_hito2.txt")
 
 
+def puntaje_combinado_50_50(precision_top1, precision_top5):
+    """
+    Métrica combinada 50/50 (Hito 3): cada bloque (Top-1 y Top-5) aporta como
+    máximo 50 puntos; alcanzar 50 en un bloque = 100% de cumplimiento de ese
+    top. Equivale a 0.5 * precision_top1 + 0.5 * precision_top5 (sobre 100).
+    """
+    return round(0.5 * float(precision_top1) + 0.5 * float(precision_top5), 2)
+
+
 def main():
     df = pd.read_csv(MANIFEST)
     print(f"Consultas a evaluar: {len(df)}")
@@ -130,7 +139,7 @@ def main():
     lineas.append("")
     lineas.append(f"Total consultas evaluadas: {len(res)}")
     lineas.append("")
-    lineas.append(f"{'Regla':<34}{'Top1':>10}{'Top5':>10}")
+    lineas.append(f"{'Regla':<34}{'Top1':>10}{'Top5':>10}{'P50/50':>10}")
     for nombre, regla in [
         ("Hito 1 (siempre original)", "original"),
         ("Hito 2 (siempre procesada)", "procesada"),
@@ -138,16 +147,27 @@ def main():
         ("Hito 2 auto: recorte < 0.95", "recorte"),
     ]:
         t1, t5 = metrica(regla)
-        lineas.append(f"{nombre:<34}{t1:>7}/{len(res)}{t5:>7}/{len(res)}")
+        p1 = 100 * t1 / max(1, len(res))
+        p5 = 100 * t5 / max(1, len(res))
+        lineas.append(f"{nombre:<34}{t1:>7}/{len(res)}{t5:>7}/{len(res)}"
+                      f"{puntaje_combinado_50_50(p1, p5):>9.1f}")
     lineas.append("")
 
     for nombre, regla in [("score", "score"), ("recorte", "recorte")]:
         res[f"auto_{regla}"] = res.apply(lambda r: top1(regla, r), axis=1)
 
     lineas.append("Por categoria (Hito 1 -> Hito 2 procesada):")
-    lineas.append(f"{'Categoria':<14}{'n':>4}{'Top1 H1':>10}{'Top1 H2':>10}{'Top5 H1':>10}{'Top5 H2':>10}")
+    lineas.append(f"{'Categoria':<14}{'n':>4}{'Top1 H1':>10}{'Top1 H2':>10}"
+                  f"{'Top5 H1':>10}{'Top5 H2':>10}{'P50 H1':>9}{'P50 H2':>9}")
     for cat, g in res.groupby("categoria"):
-        lineas.append(f"{cat:<14}{len(g):>4}{100*g['hit1_original'].mean():>9.0f}%{100*g['hit1_procesada'].mean():>10.0f}%{100*g['hit5_original'].mean():>9.0f}%{100*g['hit5_procesada'].mean():>10.0f}%")
+        p1h1 = 100 * g["hit1_original"].mean()
+        p1h2 = 100 * g["hit1_procesada"].mean()
+        p5h1 = 100 * g["hit5_original"].mean()
+        p5h2 = 100 * g["hit5_procesada"].mean()
+        lineas.append(f"{cat:<14}{len(g):>4}{p1h1:>9.0f}%{p1h2:>10.0f}%"
+                      f"{p5h1:>9.0f}%{p5h2:>10.0f}%"
+                      f"{puntaje_combinado_50_50(p1h1, p5h1):>8.1f}"
+                      f"{puntaje_combinado_50_50(p1h2, p5h2):>9.1f}")
     lineas.append("")
     lineas.append(f"Tiempo promedio de busqueda (original):  {np.mean(tiempos_orig):.2f}s")
     lineas.append(f"Tiempo promedio de busqueda (preparada):  {np.mean(tiempos_proc):.2f}s")

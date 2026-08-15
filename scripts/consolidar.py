@@ -23,7 +23,12 @@ PROVEEDOR_PREFIJO = "AIM"
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 RUTA_JSON = os.path.join(BASE_DIR, "data", "productos.json")
 RUTA_IMAGENES_ORIGEN = os.path.join(BASE_DIR, "data", "images")
-RUTA_IMAGENES_DESTINO = os.path.join(BASE_DIR, "data", "images_final")  # carpeta final a entregar
+# Banco canónico del proyecto: data/images_normalized/. La carpeta legacy
+# images_final fue eliminada en la migración Hito 3; consolidar entrega aquí.
+# NOTA: si se regenera el banco desde el scraping, el resultado contendrá las
+# tarjetas tal cual vienen de la fuente (la normalización de Sala 1 ya no se
+# vuelve a aplicar porque normalizar_imagenes.py quedó como legacy).
+RUTA_IMAGENES_DESTINO = os.path.join(BASE_DIR, "data", "images_normalized")  # carpeta final a entregar
 RUTA_CSV_SALIDA = os.path.join(BASE_DIR, "data", "products.csv")
  
 # ============================================================
@@ -91,7 +96,7 @@ def preparar_imagen(ruta_origen, ruta_destino, nombre_final):
     """
     Copia (o convierte) la imagen de origen al banco final siguiendo la
     nomenclatura canónica. Devuelve (imagen_final, error) donde imagen_final
-    es el nombre de archivo usado en images_final o None si no se pudo.
+    es el nombre de archivo usado en images_normalized o None si no se pudo.
 
     Reglas:
       - extension fuera de nomenclatura (ej. .webp) -> se convierte a .jpg;
@@ -300,7 +305,7 @@ def consolidar():
         writer.writeheader()
         writer.writerows(registros)
 
-    # Limpieza: eliminar de images_final los archivos huérfanos de corridas
+    # Limpieza: eliminar de images_normalized los archivos huérfanos de corridas
     # anteriores (esquemas viejos, IDs fuera de nomenclatura, etc.) para que la
     # carpeta contenga EXACTAMENTE el banco del CSV actual.
     nombres_validos = {r["imagen"] for r in registros}
@@ -311,7 +316,7 @@ def consolidar():
     # Reporte final
     print(f"\n✅ Procesados: {len(registros)} registros")
     print(f"✅ CSV generado en: {RUTA_CSV_SALIDA}")
-    print(f"✅ Imágenes finales en: {RUTA_IMAGENES_DESTINO}")
+    print(f"✅ Imágenes del banco en: {RUTA_IMAGENES_DESTINO}")
 
     if errores:
         print(f"\n⚠️ Se encontraron {len(errores)} problema(s):")

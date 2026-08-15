@@ -38,8 +38,8 @@ proyecto/
 │   ├── ids.npy                 # alineado posición a posición con embeddings.npy
 │   ├── embeddings_clip.npy     # índice normalizado de Sala 4 (Hito 2)
 │   ├── images_original/        # originales (NO modificar ni borrar)
-│   ├── images_normalized/      # banco limpio (Sala 1, Hito 2)
-│   └── images_final/           # banco usado por el índice del Hito 1
+│   ├── images_normalized/      # banco canónico de imágenes (Sala 1, Hito 2)
+│   └── products.csv            # ÚNICA fuente de productos (mismo ID que images_normalized)
 ├── frontend/
 │   └── app.py                  # Streamlit = cliente PURO de la API
 ├── scripts/                    # validación, embeddings, evaluación, etc.
@@ -65,7 +65,7 @@ arriba.
 - **Un solo modelo CLIP:** `openai/clip-vit-base-patch32` (en código se usa
   `SentenceTransformer("clip-ViT-B-32")`).
 - **Índice Hito 1:** `data/embeddings.npy` + `data/ids.npy` + `products.csv`
-  (generados por `scripts/generate_embeddings.py` sobre `images_final`).
+  (generados por `scripts/generar_embeddings.py` sobre `images_normalized`).
 - **Índice Hito 2 (Sala 4):** `data/embeddings_clip.npy` + `data/ids.npy`
   generados por `scripts/generar_indices_comparativos.py` sobre
   `images_normalized`. El motor Hito 2 lo usa y, si no existe, cae al Hito 1.
