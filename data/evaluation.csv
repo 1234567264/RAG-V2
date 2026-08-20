@@ -1,2 +1,17 @@
 consulta,resultado_id,posicion,score,clasificacion_humana,observacion
 q_20260813_204439_159f30,AIM-P182-045,1,0.6932,Poco similar,no se parece tanto
+q_20260819_172520_de2d78,AIM-P239-043,3,0.5824,Muy similar,
+q_20260820_144502_3bef9a,AIM-P185-054,5,0.6862,No relacionado,
+q_20260820_144502_3bef9a,AIM-P199-028,4,0.704,No relacionado,
+q_20260820_144502_3bef9a,AIM-P193-059,3,0.7345,No relacionado,
+q_20260820_144502_3bef9a,AIM-P022-060,2,0.7509,Muy similar,
+q_20260820_144502_3bef9a,AIM-P022-060,2,0.7509,No relacionado,
+q_20260820_144502_3bef9a,AIM-P120-055,1,0.7626,No relacionado,
+q_20260820_144749_0f4eab,AIM-P193-059,3,0.6121,No relacionado,
+q_20260820_144749_0f4eab,AIM-P170-042,2,0.6134,No relacionado,
+q_20260820_144749_0f4eab,AIM-P002-011,1,0.8006,Poco similar,
+q_20260820_145517_b17d8d,AIM-P002-007,3,0.6904,Muy similar,
+q_20260820_145517_b17d8d,AIM-P133-029,4,0.5724,Muy similar,
+q_20260820_145517_b17d8d,AIM-P200-007,5,0.4971,Muy similar,
+q_20260820_145517_b17d8d,AIM-P168-027,1,0.7257,No relacionado,
+q_20260820_145517_b17d8d,AIM-P026-047,2,0.7104,No relacionado,

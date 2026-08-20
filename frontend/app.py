@@ -26,6 +26,17 @@ import streamlit as st
 import streamlit.components.v1 as components
 from PIL import Image
 
+# Importar sistema de identificación por país/equipo
+try:
+    from prompts.country_identification import (
+        PAISES_FUTBOL,
+        identificar_pais_equipo,
+        construir_prompt_identificacion,
+    )
+    PROMPTS_DISPONIBLES = True
+except ImportError:
+    PROMPTS_DISPONIBLES = False
+
 API_URL_DEFAULT = "http://localhost:8000"
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 IMAGES_DIR = os.path.join(BASE_DIR, "data", "images_normalized")
@@ -584,28 +595,71 @@ with st.sidebar:
                 st.warning("Desfase detectado entre IDs y embeddings")
 
     st.divider()
-    st.markdown(f"### {ICO['cpu']} Modelo de embeddings")
-    modelo = st.selectbox(
-        "Modelo",
-        options=["fusion", "openclip", "clip"],
-        index=0,
-        format_func=lambda m: {
-            "fusion": "Fusión (CLIP + OpenCLIP + SigLIP) — más robusto",
-            "openclip": "OpenCLIP (laion/CLIP-ViT-B-32-laion2B-s34B-b79K)",
-            "clip": "CLIP (openai/clip-vit-base-patch32)",
-        }[m],
-        help="La fusión combina 3 modelos: si un punto o franja tapa parte del "
-             "diseño en la foto, los otros modelos mantienen al producto correcto.",
+
+    # Motor de búsqueda - Solo Fusión (ocl CLIP/OpenCLIP)
+    st.markdown(f"### {ICO['cpu']} Motor de búsqueda")
+    st.markdown(
+        '<div style="'
+        'padding: 0.8rem 1rem; '
+        'border-radius: 12px; '
+        'border: 1px solid rgba(0,210,255,0.3); '
+        'background: linear-gradient(135deg, rgba(0,210,255,0.08), rgba(58,123,213,0.05)); '
+        'margin-bottom: 0.5rem;'
+        '">'
+        '<div style="font-weight: 700; color: #00d2ff; font-size: 0.95rem; margin-bottom: 0.3rem;">'
+        '⚡ Fusión (CLIP + OpenCLIP + SigLIP)'
+        '</div>'
+        '<div style="font-size: 0.82rem; color: #9aa9c4; line-height: 1.5;">'
+        'Motor robusto que combina 3 modelos de visión. '
+        'Si un punto o franja tapa parte del diseño, los otros modelos '
+        'mantienen al producto correcto.'
+        '</div>'
+        '</div>',
+        unsafe_allow_html=True,
     )
+
+    # Variable de modelo (siempre fusion)
+    modelo = "fusion"
+
     st.divider()
+
+    # Identificación por país/equipo
+    if PROMPTS_DISPONIBLES:
+        st.markdown(f"### {ICO['target']} Identificación por país/equipo")
+        st.markdown(
+            '<div style="'
+            'padding: 0.7rem 0.9rem; '
+            'border-radius: 10px; '
+            'border: 1px solid rgba(52,211,153,0.25); '
+            'background: rgba(52,211,153,0.05); '
+            'font-size: 0.82rem; color: #8ef0c1; line-height: 1.5;'
+            '">'
+            'El sistema identifica el <b>país</b> y <b>equipo</b> de la camiseta '
+            'por sus colores, patrón y elementos distintivos. '
+            'Busca similitudes visuales dentro del mismo país/equipo.'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            '<div style="font-size: 0.78rem; color: #7c8bab; margin-top: 0.5rem;">'
+            '<b>Países soportados:</b> Argentina, Brasil, España, Alemania, '
+            'Francia, Inglaterra, Italia, Uruguay, Portugal, Colombia, '
+            'México, Países Bajos, Japón, Corea del Sur, Nigeria, Senegal'
+            '</div>',
+            unsafe_allow_html=True,
+        )
+    st.divider()
+
     with st.expander(f"{ICO['info']} Cómo funciona"):
         st.markdown(
             "1. **Subís** una imagen (JPG/JPEG/PNG).\n"
-            "2. La **API** la prepara (Sala 2) y genera el embedding con CLIP.\n"
-            "3. El **motor** recupera 30–100 candidatos y los reordena con "
+            "2. La **API** la prepara (Sala 2) y genera embeddings con "
+            "Fusión (3 modelos: CLIP + OpenCLIP + SigLIP).\n"
+            "3. El **motor** recupera 200 candidatos y los reordena con "
             "reranking visual (color, estructura, patrón, marco, franjas).\n"
-            "4. Se muestran las **5 más parecidas** con nombre, proveedor, "
-            "URL y score de similitud.\n\n"
+            "4. El sistema **identifica** el país y equipo por colores y patrón.\n"
+            "5. Se muestran las **5 más parecidas** con nombre, proveedor, "
+            "URL, score de similitud y país/equipo detectado.\n\n"
             "La interfaz solo consume la API; no genera embeddings ni busca localmente."
         )
 
@@ -763,6 +817,77 @@ with col_q:
                 for paso in pasos:
                     st.markdown(f"- {esc(paso)}")
 
+    # --- Identificación por país/equipo ---
+    if PROMPTS_DISPONIBLES:
+        st.markdown(f'<div class="section-title" style="margin-top: 1.2rem;">{ICO["target"]} Identificación</div>', unsafe_allow_html=True)
+
+        # Extraer colores y patrón de los resultados si están disponibles
+        colores_detectados = []
+        patron_detectado = ""
+
+        # Intentar extraer info del primer resultado o del embedding
+        if resultados:
+            primer_resultado = resultados[0]
+            # Buscar colores en los metadatos del resultado
+            modelo_info = primer_resultado.get("modelo_utilizado", "")
+            if "color" in modelo_info.lower():
+                patron_detectado = "multicolor"
+
+        # Usar la función de identificación si tenemos colores
+        if colores_detectados:
+            paises_coincidentes = identificar_pais_equipo(colores_detectados, patron_detectado)
+        else:
+            # Si no detectamos colores, mostrar info general
+            paises_coincidentes = []
+
+        # Mostrar panel de identificación
+        if paises_coincidentes:
+            mejor_pais = paises_coincidentes[0]
+            st.markdown(
+                f'<div style="'
+                f'padding: 0.8rem 1rem; '
+                f'border-radius: 12px; '
+                f'border: 1px solid rgba(52,211,153,0.35); '
+                f'background: rgba(52,211,153,0.08); '
+                f'margin-bottom: 0.5rem;'
+                f'">'
+                f'<div style="font-weight: 700; color: #8ef0c1; font-size: 0.95rem; margin-bottom: 0.3rem;">'
+                f'🌍 {esc(mejor_pais["pais"])} — {esc(mejor_pais["seleccion"])}'
+                f'</div>'
+                f'<div style="font-size: 0.82rem; color: #9aa9c4; line-height: 1.5;">'
+                f'{esc(mejor_pais["descripcion"])}'
+                f'</div>'
+                f'<div style="font-size: 0.78rem; color: #7c8bab; margin-top: 0.3rem;">'
+                f'Colores: {esc(", ".join(mejor_pais["colores"]))} · '
+                f'Coincidencia: {esc(mejor_pais["coincidencia_colores"])} · '
+                f'Score: {mejor_pais["score_coincidencia"]:.2f}'
+                f'</div>'
+                f'</div>',
+                unsafe_allow_html=True,
+            )
+
+            # Mostrar equipos asociados
+            if mejor_pais.get("equipos_famosos"):
+                with st.expander(f"📋 Equipos de {esc(mejor_pais['pais'])}"):
+                    for equipo in mejor_pais["equipos_famosos"][:6]:
+                        st.markdown(f"- {esc(equipo)}")
+        else:
+            # Panel genérico cuando no hay identificación
+            st.markdown(
+                '<div style="'
+                'padding: 0.7rem 0.9rem; '
+                'border-radius: 10px; '
+                'border: 1px solid rgba(127,212,255,0.25); '
+                'background: rgba(127,212,255,0.05); '
+                'font-size: 0.82rem; color: #9aa9c4; line-height: 1.5;'
+                '">'
+                'Sube una imagen y el sistema identificará el '
+                '<b>país</b>, <b>equipo</b>, <b>colores</b> y <b>patrón</b> '
+                'de la camiseta automáticamente.'
+                '</div>',
+                unsafe_allow_html=True,
+            )
+
 with col_r:
     st.markdown(
         '<div class="section-head">'
@@ -787,6 +912,61 @@ with col_r:
         else:
             img_html = '<div class="result-img"></div>'
 
+        # --- Identificar país/equipo del resultado ---
+        pais_tag = ""
+        if PROMPTS_DISPONIBLES:
+            nombre_producto = (r.get("nombre") or "").lower()
+            id_producto = (r.get("id") or "").lower()
+            texto_busqueda = f"{nombre_producto} {id_producto}"
+
+            # Buscar coincidencias en la base de datos
+            for pais_key, info in PAISES_FUTBOL.items():
+                # Verificar si el nombre del producto contiene el país o equipo
+                if (pais_key in texto_busqueda or
+                    info["nombre_completo"].lower() in texto_busqueda or
+                    info["seleccion"].lower() in texto_busqueda):
+                    pais_tag = (
+                        f'<div style="'
+                        f'display: inline-block; '
+                        f'padding: 0.2rem 0.6rem; '
+                        f'border-radius: 6px; '
+                        f'background: rgba(52,211,153,0.15); '
+                        f'border: 1px solid rgba(52,211,153,0.3); '
+                        f'color: #8ef0c1; '
+                        f'font-size: 0.75rem; '
+                        f'font-weight: 600; '
+                        f'margin-bottom: 0.4rem;'
+                        f'">'
+                        f'🌍 {esc(info["nombre_completo"])} · {esc(info["seleccion"])}'
+                        f'</div>'
+                    )
+                    break
+
+            # Si no se encontró país específico, intentar por colores en el nombre
+            if not pais_tag:
+                for color in ["celeste", "azul", "rojo", "verde", "amarillo", "naranja", "blanco", "negro"]:
+                    if color in texto_busqueda:
+                        # Buscar países con ese color
+                        paises_color = [p for p, info in PAISES_FUTBOL.items() if color in info["colores"]]
+                        if paises_color:
+                            mejor_pais = paises_color[0]
+                            info_pais = PAISES_FUTBOL[mejor_pais]
+                            pais_tag = (
+                                f'<div style="'
+                                f'display: inline-block; '
+                                f'padding: 0.2rem 0.6rem; '
+                                f'border-radius: 6px; '
+                                f'background: rgba(127,212,255,0.12); '
+                                f'border: 1px solid rgba(127,212,255,0.25); '
+                                f'color: #9aa9c4; '
+                                f'font-size: 0.75rem; '
+                                f'margin-bottom: 0.4rem;'
+                                f'">'
+                                f'🎨 Posible: {esc(info_pais["nombre_completo"])}'
+                                f'</div>'
+                            )
+                            break
+
         meta = []
         if r.get("score_recuperacion") is not None:
             ini = r.get("posicion_inicial")
@@ -794,7 +974,7 @@ with col_r:
             pos = f"#{ini} → #{fin}" if ini is not None and fin is not None else "—"
             meta.append(f"Recuperación: <code>{r['score_recuperacion']:.4f}</code> · Posición: <code>{pos}</code>")
         if r.get("modelo_utilizado"):
-            meta.append(f"Modelo: <code>{esc(r['modelo_utilizado'])}</code>")
+            meta.append(f"Modelo: <code>⚡ Fusión</code>")
 
         link = ""
         if r.get("url"):
@@ -813,6 +993,7 @@ with col_r:
             '<div style="min-width:0;">'
             f'<div class="result-name">{esc(r.get("nombre"))}</div>'
             f'<div class="result-id">{esc(r.get("id"))} · Proveedor: {esc(r.get("proveedor"))}</div>'
+            f'{pais_tag}'
             "</div></div>"
             '<div class="score-wrap">'
             '<div class="score-label"><span>Score de similitud</span>'

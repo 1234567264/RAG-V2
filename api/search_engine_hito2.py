@@ -569,6 +569,28 @@ def _rerank_candidatos(candidatos, query_image, etiqueta_modelo, top_k: int = 5)
     q_estructura = _estructura_gris(bgr_consulta)
     q_avanzados = descriptores_de_bgr(bgr_consulta)
 
+    # ── P1: DETECCIÓN DE VARIANTE DE COLOR ─────────────────────────────────
+    # Calcular la distancia HSV promedio entre la consulta y los candidatos
+    # para detectar si es una variante de color (recoloreada). Si la distancia
+    # es alta, reducir el peso de los atributos de color y aumentar el de
+    # estructura/patrón/embedding.
+    _es_recolor = False
+    if q_hist_global is not None and len(candidatos) > 5:
+        distancias_color = []
+        for cand in candidatos[:10]:  # Muestrear primeros 10 candidatos
+            desc_cand = _descriptores_de_archivo(cand["imagen"], id_catalogo=cand.get("id"))
+            if desc_cand is not None and desc_cand.get("hist_global") is not None:
+                # Distancia chi-cuadrado (menor = más similar)
+                dist = cv2.compareHist(q_hist_global, desc_cand["hist_global"], cv2.HISTCMP_CHISQR)
+                distancias_color.append(dist)
+        
+        if distancias_color:
+            dist_promedio = np.mean(distancias_color)
+            # Si la distancia promedio es alta (> 5.0), la consulta tiene
+            # una paleta de color muy diferente a los candidatos = recoloreada
+            if dist_promedio > 5.0:
+                _es_recolor = True
+
     # ── Paso 2: RERANKING VISUAL ─────────────────────────────────────────
     reranked = []
     for pos_inicial, cand in enumerate(candidatos, start=1):
@@ -611,17 +633,45 @@ def _rerank_candidatos(candidatos, query_image, etiqueta_modelo, top_k: int = 5)
             score_marco = 0.0
             score_franjas = 0.0
 
+        # ── P1: PESOS ADAPTATIVOS PARA RECOLOREADAS ──────────────────────
+        # Si se detectó que la consulta es una variante de color, reducir
+        # el peso de los atributos de color y aumentar estructura/patrón.
+        # Esto mejora Top-1 en recoloreadas sin sacrificar Top-5.
+        if _es_recolor:
+            # Pesos adaptativos: reducir color 50%, aumentar estructura/patrón
+            _peso_emb = PESOS["embedding"] * 1.2  # +20% al embedding
+            _peso_color_g = PESOS["color_global"] * 0.5  # -50% color
+            _peso_color_f = PESOS["color_frente"] * 0.5
+            _peso_color_e = PESOS["color_espalda"] * 0.5
+            _peso_estr = PESOS["estructura"] * 1.5  # +50% estructura
+            _peso_color_d = PESOS["color_dominante"] * 0.5
+            _peso_gama = PESOS["gama"] * 0.5
+            _peso_patron = PESOS["patron"] * 1.5  # +50% patrón
+            _peso_marco = PESOS["marco"] * 1.3  # +30% marco
+            _peso_franjas = PESOS["franjas"] * 1.3  # +30% franjas
+        else:
+            _peso_emb = PESOS["embedding"]
+            _peso_color_g = PESOS["color_global"]
+            _peso_color_f = PESOS["color_frente"]
+            _peso_color_e = PESOS["color_espalda"]
+            _peso_estr = PESOS["estructura"]
+            _peso_color_d = PESOS["color_dominante"]
+            _peso_gama = PESOS["gama"]
+            _peso_patron = PESOS["patron"]
+            _peso_marco = PESOS["marco"]
+            _peso_franjas = PESOS["franjas"]
+
         score_final = (
-            PESOS["embedding"] * score_embedding_norm
-            + PESOS["color_global"] * score_color_global
-            + PESOS["color_frente"] * score_frente
-            + PESOS["color_espalda"] * score_espalda
-            + PESOS["estructura"] * score_estructura
-            + PESOS["color_dominante"] * score_color_dominante
-            + PESOS["gama"] * score_gama
-            + PESOS["patron"] * score_patron
-            + PESOS["marco"] * score_marco
-            + PESOS["franjas"] * score_franjas
+            _peso_emb * score_embedding_norm
+            + _peso_color_g * score_color_global
+            + _peso_color_f * score_frente
+            + _peso_color_e * score_espalda
+            + _peso_estr * score_estructura
+            + _peso_color_d * score_color_dominante
+            + _peso_gama * score_gama
+            + _peso_patron * score_patron
+            + _peso_marco * score_marco
+            + _peso_franjas * score_franjas
         )
 
         # Componente de color agregado (para reportes y compatibilidad)

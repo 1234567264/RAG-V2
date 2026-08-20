@@ -14,7 +14,7 @@ Las 20 consultas se dividen en 4 grupos de 5.
 
 ## Cómo preparar las imágenes de prueba
 
-- Grupo A: copiar 5 archivos de `data/images/`.
+- Grupo A: copiar 5 archivos de `data/images_normalized/`.
 - Grupo B: capturas o descargas de camisetas parecidas (pueden ser otras
   variantes del mismo proveedor o diseños similares).
 - Grupo C: camisetas de otros equipos/estilos.

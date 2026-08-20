@@ -7,7 +7,7 @@ Plataforma de búsqueda visual de camisetas deportivas basada en **embeddings CL
 ## Flujo del sistema
 
 ```text
-[Scraper]  →  data/images/  (imágenes crudas)
+[Scraper]  →  data/images_normalized/  (imágenes normalizadas)
                 │
 [consolidar.py] → data/products.csv + data/images_normalized/   (Sala 1)
                 │
@@ -64,7 +64,7 @@ python main.py --paginas 1-20 --imagenes 1000 --modo fresh
 
 Este paso genera:
 - `data/productos.json` — datos crudos del scraping.
-- `data/images/` — las 1000 imágenes descargadas (nombres originales).
+- `data/images_normalized/` — las 15.272 imágenes normalizadas con nomenclatura `AIM-Pxxx-NNN.jpg`.
 - `data/metadata.json` — metadatos de paginación.
 - `data/productos.xlsx` — exportación Excel de respaldo.
 
@@ -76,7 +76,7 @@ Este paso genera:
 python scripts/consolidar.py
 ```
 
-Lee `data/productos.json` + `data/images/` y genera:
+Lee `data/productos.json` + `data/images_normalized/` y genera:
 - `data/products.csv` — dataset canónico (`id, proveedor, pagina, imagen, nombre_original, url`).
 - `data/images_normalized/` — banco canónico: imágenes renombradas con nomenclatura uniforme `AIM-PXXX-NNN.ext`. (La carpeta legacy `images_final/` fue eliminada en la migración Hito 3.)
 

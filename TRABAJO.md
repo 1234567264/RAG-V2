@@ -726,9 +726,9 @@ Entregar una única fuente confiable de productos para que todo el sistema traba
 Deben generar:
 
 data/products.csv  
-data/images/
+data/images_normalized/
 
-Las imágenes deben estar dentro de `data/images/`.
+Las imágenes deben estar dentro de `data/images_normalized/`.
 
 ### **2\. Validar cada registro**
 

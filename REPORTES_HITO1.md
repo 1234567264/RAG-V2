@@ -36,7 +36,7 @@ El Hito 1 quedó **COMPLETO e INTEGRADO**. Se ejecutó el flujo único obligator
 
 ### Sala 1 — Datos, nombres y base de datos (COMPLETO)
 
-**Requisito (TRABAJO.md):** entregar el `products.csv` definitivo y validado, con imágenes dentro de `data/images`.
+**Requisito (TRABAJO.md):** entregar el `products.csv` definitivo y validado, con imágenes dentro de `data/images_normalized`.
 
 **Estado real:**
 - `scripts/consolidar.py` genera `products.csv` (1000 filas) y `data/images_final/` (1000 imágenes `AIM-Pxxx-NNN`).
@@ -103,7 +103,7 @@ El Hito 1 quedó **COMPLETO e INTEGRADO**. Se ejecutó el flujo único obligator
 
 ## 🔧 Correcciones aplicadas en esta iteración
 
-1. **`scripts/validate_dataset.py`**: `IMAGES_DIR` apunta a `data/images_final/` (antes `data/images/`, por eso reportaba 1000 imágenes faltantes sin existir). Se incluye `.gif` en extensiones permitidas.
+1. **`scripts/validate_dataset.py`**: `IMAGES_DIR` apunta a `data/images_normalized/` (banco canónico). Se incluye `.gif` en extensiones permitidas.
 2. **`scripts/consolidar.py`**: regex de nomenclatura acepta `.gif` y 3–4 dígitos (`AIM-P017-1000.gif`).
 3. **`api/main.py`**: el endpoint `/search/image` devuelve `{resultados, tiempo_segundos}` (antes devolvía solo la lista), compatible con la interfaz que lee `data["resultados"]` y `data["tiempo_segundos"]`.
 4. **`scripts/build_index.py`**: marcado como **legacy** y apuntando a `images_final/` (no es parte del flujo integrado).
@@ -112,7 +112,7 @@ El Hito 1 quedó **COMPLETO e INTEGRADO**. Se ejecutó el flujo único obligator
 
 ### Archivos legacy que ya no forman parte del flujo
 - `data/index_embeddings.npy`, `data/index_metadata.json` (generados por `build_index.py`).
-- `data/images/` (fuente cruda del scraper; el entregable es `images_final/`).
+- `data/images_normalized/` (banco canónico del proyecto).
 
 ---
 

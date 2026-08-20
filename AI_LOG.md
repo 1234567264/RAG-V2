@@ -354,7 +354,7 @@ marco ni texto externo), en lugar de data/images_final/.
 ## Fecha: 2026-08-12 (Sala 1, Hito 3 — banco de 15.272)
 
 ### Prompt 6 - Consolidadar 15.272 y normalizar el banco completo
-**Propósito:** Llevar el flujo del README hasta la creación de data/images_normalized/ con el banco completo (~15.000) descargado en data/images/.
+**Propósito:** Llevar el flujo del README hasta la creación de data/images_normalized/ con el banco completo (~15.000) descargado y normalizado.
 **Resultado:**
 - scripts/consolidar.py corregido: (a) las URLs repetidas del sitio (misma preview para productos distintos con imágenes locales distintas) ahora son avisos, no errores bloqueantes; (b) fallback por índice numérico para los 97 nombres con espacios dobles; (c) conversión automática de .webp a .jpg (AIM-P221-001); (d) redimensionado de la imagen gigante (AIM-P130-056, 219M px) para evitar DecompressionBombError y OOM; (e) limpieza de archivos huérfanos en images_final.
 - scripts/normalizar_imagenes.py: fallback conservador 'dudoso' para imágenes sin frente/espalda detectables (casacas claras sobre fondo blanco), completando 15.272/15.272.

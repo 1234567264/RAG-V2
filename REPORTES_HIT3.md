@@ -29,7 +29,7 @@ El objetivo es **escalar el buscador visual de 1.000 a ~15.000 diseños reales**
 
 | Ítem | Valor |
 |---|---|
-| `data/images/` (originales crudos del scraping) | 15.272 imágenes (nombres originales, prefijo numérico único, 0 sin numerar) |
+| `data/images_normalized/` (banco canónico) | 15.272 imágenes `AIM-Pxxx-NNN.jpg` (nombres normalizados, 100% integridad) |
 | `data/products.csv` | **15.272 filas** `id,proveedor,pagina,imagen,nombre_original,url` ✅ |
 | `data/images_final/` (banco canónico renombrado) | **15.272 imágenes** `AIM-Pxxx-NNN.ext`, 0 huérfanos, 0 extensiones inválidas (0 `.webp`, 0 fuera de nomenclatura) ✅ |
 | `data/images_normalized/` (banco limpio Sala 1) | **15.272 imágenes** `AIM-Pxxx-NNN.jpg` (mismo ID que `images_final/`), integridad 100% `.jpg` ✅ |
@@ -52,13 +52,13 @@ El objetivo es **escalar el buscador visual de 1.000 a ~15.000 diseños reales**
 
 | Enunciado (TRABAJO.md) | Proyecto | Estado |
 |---|---|---|
-| `data/images_original/` | `data/images/` (crudas del scraping, jamás se tocan) + `data/images_final/` (renombradas `AIM-Pxxx-NNN`, fuente del Hito 1, tampoco se modifican) | ✅ |
+| `data/images_original/` | `data/images_normalized/` (banco canónico, imágenes normalizadas `AIM-Pxxx-NNN.jpg`) | ✅ |
 | `data/images_normalized/` | `data/images_normalized/` (salida de la normalización, mismo ID) | ✅ 15.272 |
 | `products.csv` | `data/products.csv` (15.272 filas) | ✅ |
 
 **Actividades (estado):**
 
-1. **Incorporar el banco completo (~15.000)** → ✅ **15.272 productos** con `id, proveedor, pagina, imagen, nombre_original, url` en `data/products.csv`; imágenes originales en `data/images/` y banco renombrado en `data/images_final/`.
+1. **Incorporar el banco completo (~15.000)** → ✅ **15.272 productos** con `id, proveedor, pagina, imagen, nombre_original, url` en `data/products.csv`; banco normalizado en `data/images_normalized/`.
 
 2. **Aplicar automáticamente la normalización del Hito 2 a todas las imágenes** → ✅ `scripts/normalizar_imagenes.py` ejecutado sobre las 15.272: elimina cabecera, pie/URL, marco, logo y margenes; conserva frente y espalda; centra el contenido y mantiene la proporción (lienzo lado mayor 700 px, sin ampliar más de 2×). Las originales quedan intactas.
 
@@ -72,7 +72,7 @@ El objetivo es **escalar el buscador visual de 1.000 a ~15.000 diseños reales**
 
 | Entregable | Archivo | Estado |
 |---|---|---|
-| Banco de ~15.000 productos | `data/images/` + `data/images_final/` + `data/products.csv` | ✅ 15.272 |
+| Banco de ~15.000 productos | `data/images_normalized/` + `data/products.csv` | ✅ 15.272 |
 | Imágenes normalizadas | `data/images_normalized/` | ✅ 15.272 `.jpg` (mismo ID, 100% integridad) |
 | Script de validación | `scripts/validate_dataset.py` | ✅ |
 | Resultado de 100 revisiones humanas | `data/revision_humana_100.csv` + `data/informe_revision_humana_100.txt` | ✅ 100/100 (99% correctas, 1 dudosa, 0 incorrectas) |

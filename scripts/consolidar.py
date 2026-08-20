@@ -210,7 +210,7 @@ def ejecutar_validaciones(registros, errores):
  
 def indexar_imagenes_por_numero():
     """
-    Recorre data/images y arma un índice { numero: ruta_completa }.
+    Recorre data/images_normalized y arma un índice { numero: ruta_completa }.
     Se usa el número al inicio del archivo (ej. '21-Bélgica Concept.jpg' -> 21)
     en vez del nombre completo, porque los nombres con tildes/ñ pueden
     llegar dañados según cómo se haya comprimido/movido la carpeta

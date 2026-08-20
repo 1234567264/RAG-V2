@@ -118,20 +118,40 @@ def _embedding_siglip(imagen) -> np.ndarray:
 
 
 def _recortes_consulta(imagen):
-    """Recortes de la consulta para robustez a oclusiones: imagen completa
-    más los 4 cuadrantes. Si un punto tapa el diseño en una zona, el recorte
-    opuesto sigue reconociendo el producto."""
+    """Recortes inteligentes de la consulta para maximizar la detección del diseño.
+    
+    Estrategia mejorada (P0): en vez de solo cuadrantes, usamos:
+    1. Imagen completa
+    2. Recorte central (60% del área) - donde típicamente está el diseño
+    3. Mitad superior (diseño suele estar arriba)
+    4. Recorte con margen del 15% por lado (elimina bordes)
+    5. Cuadrante superior-izquierdo (zona más probable del diseño)
+    
+    Esto aumenta la robustez a oclusiones y mejora la detección en fotos de personas."""
     w, h = imagen.size
+    recortes = [imagen]  # Siempre incluir la imagen completa
+    
+    # Recorte central (60% del área)
+    cx, cy = w // 2, h // 2
+    rw, rh = int(w * 0.3), int(h * 0.3)  # 30% de cada lado = 60% central
+    if rw > 10 and rh > 10:
+        recortes.append(imagen.crop((cx - rw, cy - rh, cx + rw, cy + rh)))
+    
+    # Mitad superior (donde típicamente está el diseño en camisetas)
+    if h > 20:
+        recortes.append(imagen.crop((0, 0, w, h // 2)))
+    
+    # Recorte con margen del 15% (elimina bordes potencialmente ruidosos)
+    mx, my = int(w * 0.15), int(h * 0.15)
+    if mx > 5 and my > 5:
+        recortes.append(imagen.crop((mx, my, w - mx, h - my)))
+    
+    # Cuadrante superior-izquierdo (zona más probable del diseño)
     mw, mh = w // 2, h // 2
-    if mw == 0 or mh == 0:
-        return [imagen]
-    return [
-        imagen,
-        imagen.crop((0, 0, mw, mh)),
-        imagen.crop((mw, 0, w, mh)),
-        imagen.crop((0, mh, mw, h)),
-        imagen.crop((mw, mh, w, h)),
-    ]
+    if mw > 10 and mh > 10:
+        recortes.append(imagen.crop((0, 0, mw, mh)))
+    
+    return recortes
 
 
 def _encodificar_fusion(imagen) -> dict:
@@ -205,7 +225,7 @@ CANDIDATOS_INICIALES = 30
 
 # La fusión recupera más candidatos (varios modelos = más robusto) para darle
 # al reranking más chances de "resucitar" el producto correcto ocluido.
-CANDIDATOS_INICIALES_FUSION = 100
+CANDIDATOS_INICIALES_FUSION = 200
 
 
 def _motor_reranked(embedding, query_image, modelo: str):
